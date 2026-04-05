@@ -1,4 +1,5 @@
 import ShayariCard from "@/components/ShayariCard";
+import ShayariText from "@/components/ShayariText";
 import SongPlayer from "@/components/SongPlayer";
 import Polaroid from "@/components/Polaroid";
 import Image from "next/image";
@@ -152,6 +153,74 @@ export default function AboutPage() {
               rotation={s.rotation}
             />
           ))}
+        </div>
+      </section>
+
+      {/* More Shayaris — text only */}
+      <section className="mb-16">
+        <h2 className="font-heading text-3xl text-secondary mb-1 text-center">
+          और कुछ लफ़्ज़...
+        </h2>
+        <p className="text-sm text-accent tracking-wider text-center mb-8">
+          just words, no voice needed
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
+          <ShayariText
+            text={"वक़्त रहते हुए सब लिखा जाएगा\nउन सब यादों का हिसाब मांगा जाएगा"}
+            rotation={-1}
+          />
+          <ShayariText
+            text={"कभी फुर्सत में बैठेंगे तब ज़िक्र करेंगे\nइतनी भी नफ़रत नहीं की कुछ पल नहीं हैं उनके लिए"}
+            rotation={0.5}
+          />
+          <ShayariText
+            text={"अब मेरी लिखी हुई शायरी किसको सुनाओं\nदर्शक तुम प्रेरक तुम अब किसको ये बतलाओं"}
+            rotation={-0.8}
+          />
+          <ShayariText
+            text={"बुझे हुए दिल को बुझा ही रहने दो\nहलचल की तो राखों से भी आग निकलेगी"}
+            rotation={1.5}
+          />
+          <ShayariText
+            text={"वक़्त! वक़्त लगता है जनाब"}
+            rotation={-0.5}
+          />
+          <ShayariText
+            text={"मैंने चाँद को काफ़ी नज़दीक से देखा है\nइसका रंग- रूप सब बदलते देखा है"}
+            rotation={1}
+          />
+          <ShayariText
+            text={"जा देख लिया है तुझे, अब जहन्नूँ की क़ब्र में\nअच्छा लगता है ना लपटों के बीच ज़िंदगी जाता देख।"}
+            rotation={-1.2}
+          />
+          <ShayariText
+            text={"इश्क़ की आदत का मलाल ज़िंदगी ज़्यादा रखती है, वरना एर-गैर आदतें तो कई दफ़ा भुलाई है"}
+            rotation={0.8}
+          />
+          <ShayariText
+            text={"एक दफ़ा माना था तुम ही ज़िंदगी हो, पर तुमने ही एहसास करा दिया की ये ही ज़िंदगी है"}
+            rotation={-0.5}
+          />
+          <ShayariText
+            text={"यूँ ना पूछ मेरी ज़िंदगी का मकसद ए ख़ुदा, उनकी रूह की परछाइयों से खुद को ज़िंदा पता हूँ"}
+            rotation={1.2}
+          />
+          <ShayariText
+            text={"हर शक्स में ये नज़रे ढूँढ रही है तुम्हें जरा नज़रो को बोल\nदो इस दिल की तरह अब ठहर जाये"}
+            rotation={-1}
+          />
+          <ShayariText
+            text={"ज़िन्दगी साँसो से नहीं, उम्मीदों से बनती है मेरे दोस्तों\nपगडण्डी मिट्टी से नही, कदमो से बनती है मेरे दोस्तों\nरोशनी सूरज से नही, अंधेरो से भी आती है मेरे दोस्तों\nबातें ज़ुबा से ही नही, आँखों से भी होती है मेरे दोस्तों\nदूरी दूर से ही नहीं, पास होकर भी होती है मेरे दोस्तों\nयादेँ पुरानी होकर भी ताज़ा सी लगती है मेरे दोस्तों।।"}
+            rotation={0}
+          />
+          <ShayariText
+            text={"इश्क़ की आँधी से आया ज़हन में तूफ़ान मंज़ूर है\nइंद्रधनशु जैसे सुंदर हमारे प्यार के परवाने मंज़ूर हैं"}
+            rotation={-0.8}
+          />
+          <ShayariText
+            text={"तो चलो अब नया आसमान चूमने, उस बेइंतहन मोहबतो की मिठास लेने\nऔर घुला दो इस इश्क़ की नदी को तुम्हारे प्यार के सागर में"}
+            rotation={1}
+          />
         </div>
       </section>
 
