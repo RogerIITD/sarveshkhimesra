@@ -8,6 +8,9 @@ import Polaroid from "@/components/Polaroid";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import Link from "next/link";
 import Image from "next/image";
+import { fetchPublishedPosts, fetchNowPage } from "@/lib/notion";
+
+export const revalidate = 60;
 
 const sportsPhotos = [
   { src: "/images/photos/tennis.jpg", alt: "Sarvesh playing tennis", caption: "Tennis, my happy place" },
@@ -30,8 +33,37 @@ const shayaris = [
   },
 ];
 
-export default function HomePage() {
-  // Pick a random shayari on each server render (changes per visit with ISR)
+export default async function HomePage() {
+  // Fetch latest post from Notion
+  let latestPost: { title: string; slug: string; excerpt: string; type: string } | null = null;
+  try {
+    const posts = await fetchPublishedPosts();
+    if (posts.length > 0) {
+      const p = posts[0];
+      latestPost = {
+        title: p.title,
+        slug: p.slug,
+        excerpt: p.excerpt || "",
+        type: p.type,
+      };
+    }
+  } catch {
+    // Notion not configured yet
+  }
+
+  // Fetch now page snippet
+  let nowSnippet = "What I'm up to right now...";
+  try {
+    const nowData = await fetchNowPage();
+    if (nowData) {
+      const plainText = nowData.contentHtml.replace(/<[^>]+>/g, "");
+      nowSnippet = plainText.slice(0, 100) + (plainText.length > 100 ? "..." : "");
+    }
+  } catch {
+    // Notion not configured yet
+  }
+
+  // Pick a random shayari (server-side, changes on each revalidation)
   const randomShayari = shayaris[Math.floor(Math.random() * shayaris.length)];
   // Pick a random sports photo
   const randomSport = sportsPhotos[Math.floor(Math.random() * sportsPhotos.length)];
@@ -48,17 +80,22 @@ export default function HomePage() {
           <HeroCard />
         </BentoCard>
 
-        {/* Latest Post — 2x1 (placeholder, wired up in Task 10) */}
+        {/* Latest Post — 2x1 */}
         <BentoCard index={1} className="col-span-1 md:col-span-2 row-span-1">
-          <Link href="/blog" className="block h-full p-6">
+          <Link
+            href={latestPost ? `/blog/${latestPost.slug}` : "/blog"}
+            className="block h-full p-6"
+          >
             <p className="text-xs font-mono text-primary uppercase tracking-wider mb-2">
               Latest Post
             </p>
             <h3 className="font-heading text-lg text-secondary mb-1">
-              Coming soon...
+              {latestPost ? latestPost.title : "Coming soon..."}
             </h3>
-            <p className="text-sm text-text/60">
-              Blog posts powered by Notion CMS. Check back soon.
+            <p className="text-sm text-text/60 line-clamp-2">
+              {latestPost
+                ? latestPost.excerpt || "Read the latest post on the blog."
+                : "Blog posts powered by Notion CMS. Check back soon."}
             </p>
           </Link>
         </BentoCard>
@@ -77,15 +114,13 @@ export default function HomePage() {
           </div>
         </BentoCard>
 
-        {/* Now — 1x1 (placeholder, wired up in Task 10) */}
+        {/* Now — 1x1 */}
         <BentoCard index={3} className="col-span-1 row-span-1">
           <Link href="/now" className="block h-full p-6">
             <p className="text-xs font-mono text-primary uppercase tracking-wider mb-2">
               Now
             </p>
-            <p className="text-sm text-text/70">
-              What I&apos;m up to right now...
-            </p>
+            <p className="text-sm text-text/70 line-clamp-4">{nowSnippet}</p>
           </Link>
         </BentoCard>
 
