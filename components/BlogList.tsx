@@ -32,6 +32,10 @@ export default function BlogList({ posts }: BlogListProps) {
     });
   }, [posts, activeType, activeTag]);
 
+  if (posts.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <FilterBar
@@ -44,7 +48,7 @@ export default function BlogList({ posts }: BlogListProps) {
 
       {filteredPosts.length === 0 ? (
         <p className="text-center text-text/50 py-12">
-          No posts found. Check back soon!
+          No posts match this filter.
         </p>
       ) : (
         <div className="space-y-5">
