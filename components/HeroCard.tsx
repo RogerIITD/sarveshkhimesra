@@ -36,7 +36,7 @@ export default function HeroCard() {
             <span className="inline-block w-0.5 h-8 bg-accent ml-1 animate-pulse" />
           </h1>
           <p className="text-bg/85 text-base lg:text-lg leading-relaxed">
-            I experiment with AI and build things that excite me.
+            A generalist who loves strategy, tech, and way too many interests.
           </p>
         </div>
         <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden border-2 border-bg/30 flex-shrink-0">

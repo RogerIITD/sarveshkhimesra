@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "Sarvesh Khimesra. AI experimenter, builder, poet, sports nerd. Let's connect.",
   openGraph: {
     title: "Sarvesh Khimesra",
-    description: "I experiment with AI and build things that excite me.",
+    description: "A generalist who loves strategy, tech, and way too many interests.",
     type: "website",
   },
   themeColor: "#2d8f6f",
