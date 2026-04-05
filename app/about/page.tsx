@@ -67,7 +67,7 @@ export default function AboutPage() {
         </h1>
         <div className="bg-parchment rounded-xl p-5 sm:p-8 shadow-md space-y-4 text-base leading-relaxed">
           <p>
-            I&apos;ve never really been a one lane kind of person. Right now I&apos;m
+            I&apos;ve always been curious about too many things at once. Right now I&apos;m
             spending most of my time with{" "}
             <strong className="text-primary">AI</strong>, playing around with
             tools like Claude Code and Codex, trying to turn random ideas into
