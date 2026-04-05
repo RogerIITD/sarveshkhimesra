@@ -91,9 +91,9 @@ export default function AboutPage() {
             unexpected places.
           </p>
           <p>
-            I&apos;m looking for the right opportunity and the right people to
-            work with. If you&apos;re someone who thinks about this stuff too,
-            let&apos;s talk.
+            If any of this resonates with you, or you just want to have a
+            conversation about life, ideas, or anything in between, I&apos;d
+            love to hear from you.
           </p>
         </div>
       </section>
@@ -269,8 +269,8 @@ export default function AboutPage() {
           Let&apos;s connect
         </h2>
         <p className="text-base text-text mb-6">
-          If you&apos;re into AI, GTM strategy, or just want to chat about
-          history, tennis, or shayari, I&apos;d love to hear from you.
+          Whether it&apos;s about AI, strategy, shayari, tennis, travel,
+          or just life in general, I&apos;m always up for a good conversation.
         </p>
         <div className="flex flex-wrap justify-center gap-4 mb-6">
           <a
