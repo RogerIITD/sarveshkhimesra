@@ -31,7 +31,7 @@ export default async function BlogPage() {
         }
       })
     );
-  } catch (error) {
+  } catch {
     // Notion API not configured yet — show empty state
   }
 

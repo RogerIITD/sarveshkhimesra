@@ -14,12 +14,14 @@ export default async function NowPage() {
 
   try {
     const data = await fetchNowPage();
-    contentHtml = data.contentHtml;
-    lastEdited = new Date(data.lastEdited).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    if (data) {
+      contentHtml = data.contentHtml;
+      lastEdited = new Date(data.lastEdited).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    }
   } catch {
     contentHtml =
       "<p>This page is powered by Notion. Content will appear once the Notion integration is configured.</p>";
