@@ -48,7 +48,7 @@ export default async function BlogPage() {
         href="/blog/musings"
         className="block mb-8 bg-parchment rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow border border-primary/10"
       >
-        <p className="text-xs font-mono text-primary uppercase tracking-wider mb-1">Collection</p>
+        <p className="text-xs font-mono text-primary uppercase tracking-wider mb-1">Writings</p>
         <h3 className="font-heading text-xl text-secondary mb-1">Random Musings</h3>
         <p className="font-shayari text-sm text-accent">और कुछ लफ़्ज़...</p>
         <p className="text-sm text-text/60 mt-2">Shayaris and thoughts on love, realisation, life, and fire.</p>
