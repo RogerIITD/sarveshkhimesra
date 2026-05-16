@@ -1,34 +1,42 @@
-import type { Metadata, Viewport } from "next";
-import Script from "next/script";
-import { JetBrains_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
+import { JetBrains_Mono } from 'next/font/google';
+import './globals.css';
+import { GameProvider } from '@/components/game/GameProvider';
+import { TennisCursor } from '@/components/game/TennisCursor';
+import { BallField } from '@/components/game/BallField';
+import { KonamiListener } from '@/components/game/KonamiListener';
+import { AchievementToast } from '@/components/game/AchievementToast';
 
 const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-mono",
-  display: "swap",
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-mono',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "Sarvesh Khimesra · AI Builder",
-  description: "AI builder. GTM × AI. Joining Razorpay 2026.",
+  title: 'Sarvesh Khimesra · AI Builder',
+  description: 'AI builder. GTM × AI. Joining Razorpay 2026. Type \'help\' to play.',
   openGraph: {
-    title: "Sarvesh Khimesra · AI Builder",
-    description: "Terminal-style portfolio. Click to serve. Type 'help'.",
-    type: "website",
+    title: 'Sarvesh Khimesra · AI Builder',
+    description: 'Terminal-style portfolio. Click to serve. Type \'help\'.',
+    type: 'website',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0e0a",
+  themeColor: '#0a0e0a',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={mono.variable}>
       <head>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-328CQS0Z6D" strategy="afterInteractive" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-328CQS0Z6D"
+          strategy="afterInteractive"
+        />
         <Script id="google-analytics" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -37,7 +45,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}</Script>
       </head>
       <body>
-        {children}
+        <GameProvider>
+          {children}
+          <TennisCursor />
+          <BallField />
+          <KonamiListener />
+          <AchievementToast />
+        </GameProvider>
         <div className="scanlines" aria-hidden />
       </body>
     </html>
