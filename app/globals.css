@@ -2,46 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+:root { color-scheme: dark; }
+
+html, body {
+  background: #0a0e0a;
+  color: #d3f3d3;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
 }
 
-body {
-  overflow-x: hidden;
-}
+html { cursor: none; }
+@media (hover: none) and (pointer: coarse) { html { cursor: auto; } }
+@media (prefers-reduced-motion: reduce)    { html { cursor: auto; } }
 
-/* Hide scrollbar for carousel */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.018) 2px,
+    rgba(255, 255, 255, 0.018) 3px
+  );
+  z-index: 50;
 }
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+@media (prefers-reduced-motion: reduce) { .scanlines { display: none; } }
 
-/* Selection color */
-::selection {
-  background-color: #2d8f6f33;
-  color: #1e293b;
-}
+:focus-visible { outline: 2px solid #d9f04a; outline-offset: 2px; }
 
-/* Focus visible for accessibility */
-:focus-visible {
-  outline: 2px solid #2d8f6f;
-  outline-offset: 2px;
-}
-
-/* Line clamp utility */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-4 {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+@keyframes caret { 50% { opacity: 0; } }
+.caret { animation: caret 1s steps(2, end) infinite; }
