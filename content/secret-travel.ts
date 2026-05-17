@@ -1,8 +1,9 @@
 export type Photo = { src: string; alt: string; caption: string; place: 'india' | 'ireland' };
 
 export const TRAVEL_INDIA: Photo[] = [
-  { src: '/images/photos/trip-2026/lakefront-dusk.jpg',   alt: 'Lakefront at dusk',  caption: 'lakefront, dusk',     place: 'india' },
-  { src: '/images/photos/trip-2026/courtyard-lounge.jpg', alt: 'Courtyard lounge',   caption: 'courtyard afternoon', place: 'india' },
+  { src: '/images/photos/trip-2026/lakefront-dusk.jpg',   alt: 'Lakefront at dusk',          caption: 'lakefront, dusk',     place: 'india' },
+  { src: '/images/photos/trip-2026/courtyard-lounge.jpg', alt: 'Courtyard lounge',           caption: 'courtyard afternoon', place: 'india' },
+  { src: '/images/photos/IMG_8028.jpg',                   alt: 'Sarvesh in the himalayas',   caption: 'himachal, summer',    place: 'india' },
 ];
 
 export const TRAVEL_IRELAND: Photo[] = [
@@ -18,7 +19,6 @@ export const TRAVEL_IRELAND: Photo[] = [
   { src: '/images/photos/IMG_7721.jpg',     alt: 'Irish countryside stream',      caption: 'countryside wandering',       place: 'ireland' },
   { src: '/images/photos/IMG_8870.jpg',     alt: 'Pint of Guinness',              caption: "first guinness, won't be the last", place: 'ireland' },
   { src: '/images/photos/IMG_7949.jpg',     alt: 'Seaside pier',                  caption: 'by the harbour',              place: 'ireland' },
-  { src: '/images/photos/IMG_8028.jpg',     alt: 'Mountains in Ireland',          caption: 'irish mountains',             place: 'ireland' },
   { src: '/images/photos/IMG_7944.jpg',     alt: 'Ireland landscape',             caption: 'somewhere in ireland',        place: 'ireland' },
   { src: '/images/photos/IMG_2279.jpg',     alt: 'Sarvesh in Ireland',            caption: 'late night, ireland',         place: 'ireland' },
 ];
