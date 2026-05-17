@@ -17,7 +17,7 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'Sarvesh Khimesra · AI Builder',
-  description: 'AI builder. GTM × AI. Joining Razorpay 2026. Type \'help\' to play.',
+  description: 'AI Builder at Razorpay. Type \'help\' to play.',
   openGraph: {
     title: 'Sarvesh Khimesra · AI Builder',
     description: 'Terminal-style portfolio. Click to serve. Type \'help\'.',

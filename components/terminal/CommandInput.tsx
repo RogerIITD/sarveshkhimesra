@@ -22,7 +22,7 @@ function ComponentSlot({ kind }: { kind: string }) {
   if (kind === 'song:maafi') return <SongPlayer />;
   if (kind === 'gallery:travel') return <Gallery which="travel" />;
   if (kind === 'gallery:sports') return <Gallery which="sports" />;
-  if (kind === 'whoami') return <pre className="text-fg/90">sarvesh khimesra · ai builder · razorpay · coo&apos;s office</pre>;
+  if (kind === 'whoami') return <pre className="text-fg/90">sarvesh khimesra · ai builder at razorpay</pre>;
   if (kind === 'about') return <p className="text-fg/90 text-sm">already shown above — run &apos;help&apos; for the menu.</p>;
   if (kind === 'projects') return <p className="text-fg/90 text-sm">scroll up — projects/ already listed.</p>;
   if (kind === 'contact') return <p className="text-fg/90 text-sm">socials are above.</p>;

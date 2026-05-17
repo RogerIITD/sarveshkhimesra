@@ -9,7 +9,7 @@ export default function HomePage() {
     <TerminalWindow>
       <CommandBlock command="whoami" delay={0.0} id="whoami">
         <h1 className="text-prompt text-2xl md:text-3xl font-medium">sarvesh khimesra</h1>
-        <p className="text-muted text-sm mt-1">ai builder · razorpay · coo&apos;s office</p>
+        <p className="text-muted text-sm mt-1">ai builder at razorpay</p>
       </CommandBlock>
 
       <CommandBlock command="cat about.md" delay={0.10} id="about">
