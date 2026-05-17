@@ -41,11 +41,24 @@ export function CommandInput() {
   useEffect(() => {
     const onEvent = (e: Event) => {
       const detail = (e as CustomEvent).detail;
-      if (detail?.type === 'clear' || detail?.type === 'reset') setHistory([]);
+      if (detail?.type === 'clear' || detail?.type === 'reset') {
+        setHistory([]);
+        return;
+      }
+      if (detail?.type === 'run' && typeof detail.command === 'string') {
+        const cmd = detail.command as string;
+        const output = runCommand(cmd, { unlock, emit: dispatchEvent });
+        setHistory((h) => [...h, { id: ++idCounter.current, input: cmd, output }]);
+        setRecall(null);
+        // Scroll the new block into view so the user sees the result
+        queueMicrotask(() => {
+          inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      }
     };
     emitter.addEventListener('game', onEvent);
     return () => emitter.removeEventListener('game', onEvent);
-  }, [emitter]);
+  }, [emitter, unlock, dispatchEvent]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -118,7 +131,7 @@ export function CommandInput() {
           autoComplete="off"
           spellCheck={false}
           className="flex-1 bg-transparent outline-none text-fg placeholder:text-muted/60"
-          placeholder="type 'help'"
+          placeholder="click a tip above or type a command"
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

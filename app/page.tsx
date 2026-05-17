@@ -1,6 +1,8 @@
 import { TerminalWindow } from '@/components/terminal/TerminalWindow';
 import { CommandBlock } from '@/components/terminal/CommandBlock';
 import { CommandInput } from '@/components/terminal/CommandInput';
+import { TipsBlock } from '@/components/terminal/TipsBlock';
+import { BlockReveal } from '@/components/terminal/BlockReveal';
 import { ABOUT_LINES } from '@/content/about';
 import { PROJECTS } from '@/content/projects';
 
@@ -75,6 +77,10 @@ export default function HomePage() {
           </li>
         </ul>
       </CommandBlock>
+
+      <BlockReveal delay={0.40}>
+        <TipsBlock />
+      </BlockReveal>
 
       <CommandInput />
 

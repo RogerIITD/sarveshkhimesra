@@ -11,7 +11,8 @@ export type GameEvent =
   | { type: 'open-song' }
   | { type: 'open-gallery'; key: 'travel' | 'sports' }
   | { type: 'theme'; mode: 'classic' | 'game' }
-  | { type: 'reset' };
+  | { type: 'reset' }
+  | { type: 'run'; command: string };
 
 export type CommandOutput =
   | { kind: 'text'; body: string }
