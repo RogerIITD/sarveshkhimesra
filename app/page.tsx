@@ -23,15 +23,15 @@ export default function HomePage() {
       </CommandBlock>
 
       <CommandBlock command="ls projects/" delay={0.20} id="projects">
-        <ul className="space-y-2 text-sm">
+        <ul className="space-y-3 sm:space-y-2 text-sm">
           {PROJECTS.map((p) => (
             <li
               key={p.slug}
-              className="grid grid-cols-[160px_1fr] gap-3"
+              className="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-3 gap-y-1 min-w-0"
               data-target={`project-${p.slug}`}
             >
-              <span className="text-prompt">{p.slug}/</span>
-              <span>
+              <span className="text-prompt break-words">{p.slug}/</span>
+              <span className="min-w-0 break-words">
                 <span className="text-fg">{p.title}</span>
                 <span className="text-muted"> — {p.description}</span>
               </span>
