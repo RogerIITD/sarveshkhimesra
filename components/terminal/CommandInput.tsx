@@ -20,8 +20,10 @@ type Entry = { id: number; input: string; output: CommandOutput };
 function ComponentSlot({ kind }: { kind: string }) {
   if (kind === 'shayari') return <ShayariModal inline />;
   if (kind === 'song:maafi') return <SongPlayer />;
-  if (kind === 'gallery:travel') return <Gallery which="travel" />;
-  if (kind === 'gallery:sports') return <Gallery which="sports" />;
+  if (kind === 'gallery:travel')         return <Gallery which="travel" />;
+  if (kind === 'gallery:travel-india')   return <Gallery which="travel-india" />;
+  if (kind === 'gallery:travel-ireland') return <Gallery which="travel-ireland" />;
+  if (kind === 'gallery:sports')         return <Gallery which="sports" />;
   if (kind === 'whoami') return <pre className="text-fg/90">sarvesh khimesra · ai builder at razorpay</pre>;
   if (kind === 'about') return <p className="text-fg/90 text-sm">already shown above — run &apos;help&apos; for the menu.</p>;
   if (kind === 'projects') return <p className="text-fg/90 text-sm">scroll up — projects/ already listed.</p>;

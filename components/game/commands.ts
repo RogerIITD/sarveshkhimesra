@@ -109,6 +109,8 @@ export const COMMAND_REGISTRY: Command[] = [
       if (dir.startsWith('travel')) {
         ctx.unlock('travel_seen');
         ctx.emit({ type: 'open-gallery', key: 'travel' });
+        if (dir === 'travel/india')   return { kind: 'component', body: 'gallery:travel-india' };
+        if (dir === 'travel/ireland') return { kind: 'component', body: 'gallery:travel-ireland' };
         return { kind: 'component', body: 'gallery:travel' };
       }
       if (dir.startsWith('sports')) {

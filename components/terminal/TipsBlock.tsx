@@ -3,11 +3,11 @@
 import { useGame } from '@/components/game/GameProvider';
 
 const TIPS: { cmd: string; hint: string }[] = [
-  { cmd: 'shayari',         hint: 'hindi poetry, in my voice' },
-  { cmd: 'play maafi',      hint: 'a song i wrote' },
-  { cmd: 'ls travel/india', hint: 'photos from a recent trip' },
-  { cmd: 'ls sports',       hint: 'tennis + cricket' },
-  { cmd: 'help',            hint: 'all visible commands' },
+  { cmd: 'shayari',     hint: 'hindi poetry, in my voice' },
+  { cmd: 'play maafi',  hint: 'a song i wrote' },
+  { cmd: 'ls travel',   hint: 'photos from india + ireland' },
+  { cmd: 'ls sports',   hint: 'tennis + cricket' },
+  { cmd: 'help',        hint: 'all visible commands' },
 ];
 
 export function TipsBlock() {
