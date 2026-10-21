@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Tiro_Devanagari_Hindi } from 'next/font/google';
 import './globals.css';
 import { GameProvider } from '@/components/game/GameProvider';
-import { TennisCursor } from '@/components/game/TennisCursor';
-import { BallField } from '@/components/game/BallField';
 import { KonamiListener } from '@/components/game/KonamiListener';
-import { AchievementToast } from '@/components/game/AchievementToast';
 
+const sans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+const hindi = Tiro_Devanagari_Hindi({ subsets: ['devanagari'], weight: '400', variable: '--font-hindi', display: 'swap' });
 const mono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -16,22 +15,25 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Sarvesh Khimesra · AI Builder',
-  description: 'AI Builder at Razorpay. Type \'help\' to play.',
+  // absolute URLs for the link-preview image when shared on LinkedIn / WhatsApp / X
+  metadataBase: new URL('https://sarveshkhimesra.vercel.app'),
+  title: 'Sarvesh Khimesra · AI Engineer, Office of the COO at Razorpay',
+  description: 'AI engineer driving business transformation, process excellence and AI strategy. Also: shayari, a song called Maafi, tennis, squash and cricket.',
   openGraph: {
-    title: 'Sarvesh Khimesra · AI Builder',
-    description: 'Terminal-style portfolio. Click to serve. Type \'help\'.',
+    title: 'Sarvesh Khimesra · AI Engineer, Office of the COO at Razorpay',
+    description: 'Business transformation × AI. Open the apps — shayari, music, sports, travel.',
     type: 'website',
+    images: ['/images/os/headshot.jpg'],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0a0e0a',
+  themeColor: '#0b0d12',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={mono.variable}>
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable} ${hindi.variable}`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-328CQS0Z6D"
@@ -47,12 +49,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <GameProvider>
           {children}
-          <TennisCursor />
-          <BallField />
           <KonamiListener />
-          <AchievementToast />
         </GameProvider>
-        <div className="scanlines" aria-hidden />
       </body>
     </html>
   );

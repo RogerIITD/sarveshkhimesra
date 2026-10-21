@@ -2,35 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
+:root { color-scheme: dark; --accent: 251 191 36; }
+
 
 html, body {
-  background: #0a0e0a;
-  color: #d3f3d3;
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
-  overflow-x: hidden;
+  background: #07080b;
+  color: #e8eaf0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: clip;
 }
 
-html { cursor: none; }
-@media (hover: none) and (pointer: coarse) { html { cursor: auto; } }
-@media (prefers-reduced-motion: reduce)    { html { cursor: auto; } }
+/* the desktop owns the screen: no page scroll behind it */
+html.os-mode, html.os-mode body { overflow: hidden; }
 
-.scanlines {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0,
-    transparent 2px,
-    rgba(255, 255, 255, 0.018) 2px,
-    rgba(255, 255, 255, 0.018) 3px
-  );
-  z-index: 50;
-}
-@media (prefers-reduced-motion: reduce) { .scanlines { display: none; } }
-
-:focus-visible { outline: 2px solid #d9f04a; outline-offset: 2px; }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; }
 
 @keyframes caret { 50% { opacity: 0; } }
 .caret { animation: caret 1s steps(2, end) infinite; }
+
+@keyframes eq { 0%, 100% { height: 25%; } 50% { height: 100%; } }
+.eq-bar { height: 25%; animation: eq 0.8s ease-in-out infinite; }
+
+* { scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / 0.15) transparent; }

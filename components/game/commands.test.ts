@@ -62,6 +62,20 @@ describe('runCommand', () => {
     expect(out.body).not.toMatch(/ls travel/);
   });
 
+  it('open <app> emits open-app and rejects unknown apps', () => {
+    const c = ctx();
+    expect(runCommand('open camera/', c).kind).toBe('text');
+    expect(c.emit).toHaveBeenCalledWith({ type: 'open-app', app: 'camera' });
+    expect(runCommand('open netflix', ctx()).kind).toBe('error');
+  });
+
+  it('persona <side> emits persona and rejects unknown sides', () => {
+    const c = ctx();
+    expect(runCommand('persona poet', c).kind).toBe('text');
+    expect(c.emit).toHaveBeenCalledWith({ type: 'persona', persona: 'poet' });
+    expect(runCommand('persona villain', ctx()).kind).toBe('error');
+  });
+
   it('registry contains expected commands', () => {
     const names = COMMAND_REGISTRY.map((c) => c.name).sort();
     expect(names).toContain('help');

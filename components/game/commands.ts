@@ -12,7 +12,9 @@ export type GameEvent =
   | { type: 'open-gallery'; key: 'travel' | 'sports' }
   | { type: 'theme'; mode: 'classic' | 'game' }
   | { type: 'reset' }
-  | { type: 'run'; command: string };
+  | { type: 'run'; command: string }
+  | { type: 'open-app'; app: string }
+  | { type: 'persona'; persona: string };
 
 export type CommandOutput =
   | { kind: 'text'; body: string }
@@ -26,6 +28,10 @@ type Command = {
   run: (args: string[], ctx: CommandCtx) => CommandOutput;
 };
 
+const OPENABLE = ['about', 'shayari', 'maafi', 'sports', 'travel', 'camera', 'contact'];
+
+const PERSONAS = ['engineer', 'poet', 'athlete', 'traveller'];
+
 export const COMMAND_REGISTRY: Command[] = [
   {
     name: 'help',
@@ -36,13 +42,13 @@ export const COMMAND_REGISTRY: Command[] = [
         'available commands:',
         '  whoami            who is sarvesh',
         '  cat about.md      longer intro',
-        '  ls projects/      what i am building',
         '  contact --me      socials',
-        '  theme classic     turn the game off',
-        '  theme game        turn the game on',
+        '  open <app>        launch an app: about, camera, contact',
+        '  persona <side>    engineer | poet | athlete | traveller',
         '  clear             clear the screen',
-        '  reset             wipe saved progress',
         '  help              this list',
+        '',
+        'psst — not everything is in this list.',
       ].join('\n'),
     }),
   },
@@ -98,6 +104,28 @@ export const COMMAND_REGISTRY: Command[] = [
       return { kind: 'text', body: 'progress wiped.' };
     },
   },
+  {
+    name: 'open',
+    describe: 'open <app>',
+    run: (args, ctx) => {
+      const app = (args[0] ?? '').replace(/[/.].*$/, '');
+      if (!OPENABLE.includes(app)) {
+        return { kind: 'error', body: `open: '${args[0] ?? ''}' not found. try: ${OPENABLE.join(', ')}` };
+      }
+      ctx.emit({ type: 'open-app', app });
+      return { kind: 'text', body: `launching ${app}…` };
+    },
+  },
+  {
+    name: 'persona',
+    describe: 'persona <side>',
+    run: (args, ctx) => {
+      const side = args[0] ?? '';
+      if (!PERSONAS.includes(side)) return { kind: 'error', body: `persona: pick one of ${PERSONAS.join(', ')}` };
+      ctx.emit({ type: 'persona', persona: side });
+      return { kind: 'text', body: `switching to ${side}…` };
+    },
+  },
   // Hidden — not listed in help
   {
     name: 'ls',
@@ -105,7 +133,6 @@ export const COMMAND_REGISTRY: Command[] = [
     describe: 'ls <dir>',
     run: (args, ctx) => {
       const dir = args[0] ?? '';
-      if (dir.startsWith('projects')) return { kind: 'component', body: 'projects' };
       if (dir.startsWith('travel')) {
         ctx.unlock('travel_seen');
         ctx.emit({ type: 'open-gallery', key: 'travel' });

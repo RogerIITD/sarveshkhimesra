@@ -10,15 +10,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0a0e0a",
-        fg: "#d3f3d3",
-        prompt: "#4cd964",
-        ball: "#d9f04a",
-        muted: "#8d9b8d",
-        chrome: "#1f3a1f",
+        bg: "#0b0d12",
+        panel: "#12151c",
+        "panel-hi": "#181c25",
+        ink: "#e8eaf0",
+        dim: "#9aa1b2",
+        accent: "rgb(var(--accent) / <alpha-value>)",
+        line: "rgb(255 255 255 / 0.08)",
+        "line-strong": "rgb(255 255 255 / 0.18)",
       },
       fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+        hindi: ["var(--font-hindi)", "serif"],
+      },
+      animation: {
+        "spin-slow": "spin 6s linear infinite",
       },
     },
   },
