@@ -15,6 +15,8 @@ type Props = {
   z: number;
   /** the final chapter isn't covered by a following wipe, so its content runs to the end */
   last?: boolean;
+  /** extra classes on the pinned screen (e.g. a themed cursor) */
+  className?: string;
   onProgress?: (id: string, entered: boolean, done: boolean) => void;
   children: (content: MotionValue<number>) => React.ReactNode;
 };
@@ -22,7 +24,7 @@ type Props = {
 // A full-screen chapter that stays pinned while you scroll. It overlaps the
 // previous chapter's last two screens, so it can clip in on top of it while
 // that one is still pinned (pill rising from the bottom, or a growing circle).
-export function Chapter({ id, screens, enter, background, accent, z, last = false, onProgress, children }: Props) {
+export function Chapter({ id, screens, enter, background, accent, z, last = false, className = '', onProgress, children }: Props) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const entryEnd = enter === 'none' ? 0 : 1 / screens;
@@ -51,7 +53,7 @@ export function Chapter({ id, screens, enter, background, accent, z, last = fals
       style={{ height: `${(screens + 1) * 100}svh`, marginTop: enter === 'none' ? 0 : '-200svh', zIndex: z }}
     >
       <motion.div
-        className="sticky top-0 h-[100svh] overflow-hidden"
+        className={`sticky top-0 h-[100svh] overflow-hidden ${className}`}
         style={{ clipPath, background, pointerEvents, ['--accent' as string]: accent }}
       >
         {children(content)}

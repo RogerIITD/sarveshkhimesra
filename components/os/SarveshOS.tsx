@@ -141,7 +141,7 @@ export function SarveshOS({ onStory }: { onStory: () => void }) {
   const topId = wins.reduce<Win | null>((a, w) => (!a || w.z > a.z ? w : a), null)?.id;
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-bg text-ink">
+    <div className={`fixed inset-0 overflow-hidden bg-bg text-ink ${PERSONA_CURSOR[persona.id]}`}>
       <div className={`absolute inset-0 transition-[filter] duration-700 ${turbo ? 'hue-rotate-180 saturate-150' : ''}`}>
         <Wallpaper persona={persona} />
       </div>
@@ -298,6 +298,8 @@ export function SarveshOS({ onStory }: { onStory: () => void }) {
     </div>
   );
 }
+
+const PERSONA_CURSOR: Record<PersonaId, string> = { engineer: '', poet: 'cursor-pen', athlete: 'cursor-racquet', traveller: 'cursor-plane' };
 
 function Welcome({ persona }: { persona: Persona }) {
   const headline = useScramble(persona.headline, 700);

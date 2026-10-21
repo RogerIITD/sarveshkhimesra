@@ -84,7 +84,7 @@ export function Window(props: Props) {
       <motion.div
         variants={morph}
         custom={custom}
-        className={`h-full flex flex-col rounded-xl overflow-hidden border bg-panel/95 backdrop-blur-xl shadow-2xl transition-[border-color,box-shadow] ${
+        className={`cursor-auto h-full flex flex-col rounded-xl overflow-hidden border bg-panel/95 backdrop-blur-xl shadow-2xl transition-[border-color,box-shadow] ${
           focused ? 'border-line-strong shadow-black/60 ring-1 ring-accent/20' : 'border-line shadow-black/40'
         }`}
       >

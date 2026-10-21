@@ -5,12 +5,13 @@ import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'fra
 import { useEffect, useRef, useState } from 'react';
 import { BIO, CAMERA_ROLL, HERO, SPORTS, TRAVEL } from '@/content/os';
 import { BOOT_LINES } from '@/content/personas';
-import { SHAYARI } from '@/content/secret-shayari';
 import { MaafiApp } from '@/components/os/apps/MaafiApp';
 import { useScramble } from '@/components/os/useScramble';
 import { Media } from '@/components/os/Media';
 import { track } from '@/lib/track';
+import { BouncingBalls } from '@/components/BouncingBalls';
 import { Chapter } from './Chapter';
+import { Book } from './Book';
 import { Reveal, Words } from './Words';
 
 export const CHAPTERS = [
@@ -46,13 +47,13 @@ export function Story({ onActive, onEnterOS }: Props) {
       <Chapter id="engineer" screens={4} enter="pill" background="#0b0d12" accent="251 191 36" z={2} onProgress={report}>
         {(p) => <Engineer p={p} />}
       </Chapter>
-      <Chapter id="poet" screens={4} enter="circle" background="#120b09" accent="244 114 82" z={3} onProgress={report}>
+      <Chapter id="poet" screens={4} enter="circle" background="#120b09" accent="244 114 82" z={3} className="cursor-pen" onProgress={report}>
         {(p) => <Poet p={p} />}
       </Chapter>
-      <Chapter id="athlete" screens={4} enter="pill" background="#0a1a14" accent="190 242 100" z={4} onProgress={report}>
+      <Chapter id="athlete" screens={4} enter="pill" background="#0a1a14" accent="190 242 100" z={4} className="cursor-racquet" onProgress={report}>
         {(p) => <Athlete p={p} />}
       </Chapter>
-      <Chapter id="traveller" screens={5} enter="circle" background="#08121b" accent="125 211 252" z={5} onProgress={report}>
+      <Chapter id="traveller" screens={5} enter="circle" background="#08121b" accent="125 211 252" z={5} className="cursor-plane" onProgress={report}>
         {(p) => <Traveller p={p} />}
       </Chapter>
       <Chapter id="boot" screens={2} enter="pill" background="#050608" accent="52 211 153" z={6} last onProgress={report}>
@@ -164,7 +165,7 @@ function Engineer({ p }: { p: MotionValue<number> }) {
       <div className="relative h-full flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
         <Kicker n="01" label="at work" />
         <Words
-          text="I work inside the COO's office at Razorpay, redesigning how a company runs — with AI."
+          text="I work in the COO's office at Razorpay, redesigning how a company runs — with AI."
           progress={p}
           from={0}
           to={0.35}
@@ -188,62 +189,16 @@ function Engineer({ p }: { p: MotionValue<number> }) {
 
 /* ── 02 poet ──────────────────────────────────────────── */
 function Poet({ p }: { p: MotionValue<number> }) {
-  const [playing, setPlaying] = useState<number | null>(null);
-  const audio = useRef<HTMLAudioElement | null>(null);
-  useEffect(() => () => audio.current?.pause(), []);
-  const toggle = (i: number) => {
-    audio.current?.pause();
-    if (playing === i) return setPlaying(null);
-    const a = new Audio(SHAYARI[i].audio);
-    audio.current = a;
-    a.onended = () => setPlaying(null);
-    a.play()
-      .then(() => track({ name: 'audio_play', track: `shayari-${i + 1}` }))
-      .catch(() => setPlaying(null));
-    setPlaying(i);
-  };
-
   return (
     <div className="relative h-full flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
       <p className="absolute -right-8 bottom-0 font-hindi text-[30vw] leading-none text-white/[0.03] select-none pointer-events-none">शायरी</p>
       <Kicker n="02" label="the shayar" />
-      <div className="mt-8 relative min-h-[260px] md:min-h-[300px]">
-        {SHAYARI.map((s, i) => (
-          <Couplet key={i} text={s.text} p={p} index={i} playing={playing === i} onToggle={() => toggle(i)} />
-        ))}
-      </div>
-      {/* on very short phones there is no room under the couplet; Maafi is one tap away in the desktop */}
-      <Reveal progress={p} at={[0.78, 0.9]} className="[@media(max-height:640px)]:hidden mt-6 max-w-md rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur">
+      <Book p={p} className="mt-6 md:mt-8" />
+      {/* on short screens there is no room under the book; Maafi is one tap away in the desktop */}
+      <Reveal progress={p} at={[0.78, 0.9]} className="[@media(max-height:820px)]:hidden mt-6 max-w-md rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur">
         <MaafiApp />
       </Reveal>
     </div>
-  );
-}
-
-function Couplet({ text, p, index, playing, onToggle }: { text: string; p: MotionValue<number>; index: number; playing: boolean; onToggle: () => void }) {
-  // Three couplets share the stage: each sharpens in, holds, then blurs out.
-  const a = index * 0.25;
-  // quick hand-off (a cut, not a long cross-blur) so one couplet is always readable
-  const range = [a, a + 0.04, a + 0.22, a + 0.25];
-  const last = index === SHAYARI.length - 1;
-  const opacity = useTransform(p, range, [0, 1, 1, last ? 1 : 0]);
-  const blur = useTransform(p, range, [12, 0, 0, last ? 0 : 12]);
-  const filter = useTransform(blur, (b) => `blur(${b}px)`);
-  const y = useTransform(p, range, [18, 0, 0, last ? 0 : -18]);
-  const [live, setLive] = useState(index === 0);
-  useMotionValueEvent(opacity, 'change', (o) => setLive(o > 0.5));
-  return (
-    <motion.div style={{ opacity, filter, y }} className={`absolute inset-x-0 top-0 ${live ? '' : 'pointer-events-none'}`}>
-      {text.split('\n').map((l) => (
-        <p key={l} className="font-hindi text-[26px] sm:text-3xl md:text-5xl [@media(max-height:640px)]:text-[22px] leading-[1.6] text-ink">
-          {l}
-        </p>
-      ))}
-      <button onClick={onToggle} className="mt-6 inline-flex items-center gap-3 text-accent font-mono text-sm" data-target={`story-shayari-${index}`}>
-        <span className="w-10 h-10 rounded-full border border-accent grid place-items-center">{playing ? '◼' : '▶'}</span>
-        {playing ? 'playing…' : 'hear it in my voice'}
-      </button>
-    </motion.div>
   );
 }
 
@@ -268,6 +223,7 @@ function Athlete({ p }: { p: MotionValue<number> }) {
           <motion.path key={d} d={d} style={{ pathLength: draw }} />
         ))}
       </svg>
+      <BouncingBalls className="opacity-70" />
       <div className="relative h-full flex flex-col md:flex-row md:items-center gap-5 md:gap-8 pt-14 md:pt-0 px-6 md:px-16 max-w-6xl mx-auto justify-center">
         <div className="md:flex-1">
           <Kicker n="03" label="on court" />

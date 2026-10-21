@@ -5,7 +5,7 @@ export const BIO = {
   name: 'Sarvesh Khimesra',
   title: 'AI Engineer · Office of the COO, Razorpay',
   lines: [
-    "I work on business transformation from inside the COO's office — finding where AI can redesign how the company runs, building the tools that do it, and shaping the AI strategy behind them.",
+    "I work on business transformation in the COO's office — finding where AI can redesign how the company runs, building the tools that do it, and shaping the AI strategy behind them.",
     'Before this: UPSC prep, a lot of history and economics, and a habit of connecting dots across domains.',
   ],
   focus: ['business transformation', 'process excellence', 'ai strategy'],

@@ -24,3 +24,22 @@ html.os-mode, html.os-mode body { overflow: hidden; }
 .eq-bar { height: 25%; animation: eq 0.8s ease-in-out infinite; }
 
 * { scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / 0.15) transparent; }
+
+/* themed cursors (fine pointers only; buttons keep the hand) */
+.cursor-pen { cursor: url('/cursors/pen.svg') 5 27, auto; }
+.cursor-racquet { cursor: url('/cursors/racquet.svg') 12 12, auto; }
+.cursor-plane { cursor: url('/cursors/plane.svg') 5 5, auto; }
+
+/* tennis balls: travel sideways (outer), bounce (middle), squash on landing (ball) */
+@keyframes ball-travel { from { transform: translateX(0); } to { transform: translateX(var(--run)); } }
+@keyframes ball-bounce {
+  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.2, 0.6, 0.35, 1); }
+  50% { transform: translateY(calc(var(--h) * -1)); animation-timing-function: cubic-bezier(0.65, 0, 0.8, 0.4); }
+}
+@keyframes ball-squash { 0%, 6%, 94%, 100% { transform: scale(1.18, 0.82); } 12%, 88% { transform: scale(1); } }
+@keyframes ball-shadow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(0.45); opacity: 0.15; } }
+.ball-run { animation: ball-travel var(--t) ease-in-out infinite alternate; }
+.ball-hop { animation: ball-bounce var(--b) infinite; }
+.ball-squash { animation: ball-squash var(--b) infinite; transform-origin: 50% 100%; }
+.ball-shadow { animation: ball-shadow var(--b) infinite; }
+@media (prefers-reduced-motion: reduce) { .ball-run, .ball-hop, .ball-squash, .ball-shadow { animation: none; } }
