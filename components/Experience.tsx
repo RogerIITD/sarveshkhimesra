@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useScroll } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SarveshOS } from '@/components/os/SarveshOS';
 import { SocialLinks } from '@/components/SocialLinks';
+import { NowPlaying } from '@/components/NowPlaying';
 import { CHAPTERS, Story } from '@/components/story/Story';
 import { track } from '@/lib/track';
 
@@ -112,6 +113,7 @@ export function Experience() {
           </motion.div>
         )}
       </AnimatePresence>
+      <NowPlaying mode={mode} />
     </>
   );
 }

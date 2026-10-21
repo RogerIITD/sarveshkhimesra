@@ -1,65 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { track } from '@/lib/track';
-
-const MILESTONES = [25, 50, 75, 100] as const;
+import { useEffect, useRef } from 'react';
+import { maafi, useMaafi } from '@/lib/maafi';
 
 /** `big` is the full-stage version used in the story's songwriter moment. */
 export function MaafiApp({ big = false }: { big?: boolean }) {
-  const [playing, setPlaying] = useState(false);
-  const [time, setTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const audio = useRef<HTMLAudioElement | null>(null);
+  const { playing, time, duration } = useMaafi();
   const bar = useRef<HTMLDivElement | null>(null);
-  const reached = useRef(new Set<number>());
-
-  useEffect(() => {
-    const a = new Audio('/audio/song.mp3');
-    a.preload = 'metadata';
-    audio.current = a;
-    const onMeta = () => setDuration(a.duration);
-    const onTime = () => {
-      setTime(a.currentTime);
-      if (!a.duration) return;
-      const pct = (a.currentTime / a.duration) * 100;
-      for (const m of MILESTONES) {
-        if (pct >= m - 0.5 && !reached.current.has(m)) {
-          reached.current.add(m);
-          track({ name: 'audio_progress', track: 'maafi', pct: m });
-        }
-      }
-    };
-    const onEnd = () => setPlaying(false);
-    a.addEventListener('loadedmetadata', onMeta);
-    a.addEventListener('timeupdate', onTime);
-    a.addEventListener('ended', onEnd);
-    return () => {
-      a.pause();
-      a.removeEventListener('loadedmetadata', onMeta);
-      a.removeEventListener('timeupdate', onTime);
-      a.removeEventListener('ended', onEnd);
-      a.src = '';
-    };
-  }, []);
-
-  const toggle = useCallback(() => {
-    const a = audio.current;
-    if (!a) return;
-    if (playing) {
-      a.pause();
-      setPlaying(false);
-    } else {
-      void a.play();
-      setPlaying(true);
-      track({ name: 'audio_play', track: 'maafi' });
-    }
-  }, [playing]);
+  useEffect(() => maafi.prepare(), []);
+  const toggle = maafi.toggle;
 
   const seek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audio.current || !bar.current || !duration) return;
+    if (!bar.current) return;
     const r = bar.current.getBoundingClientRect();
-    audio.current.currentTime = ((e.clientX - r.left) / r.width) * duration;
+    maafi.seek((e.clientX - r.left) / r.width);
   };
 
   const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { SHAYARI } from '@/content/secret-shayari';
 import { track } from '@/lib/track';
+import { maafi } from '@/lib/maafi';
 
 export function ShayariApp() {
   const [playing, setPlaying] = useState<number | null>(null);
@@ -16,6 +17,7 @@ export function ShayariApp() {
       setPlaying(null);
       return;
     }
+    maafi.pause(); // one voice at a time; the mini player can resume the song
     const a = new Audio(SHAYARI[i].audio);
     audio.current = a;
     a.onended = () => setPlaying(null);

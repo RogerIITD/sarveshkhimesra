@@ -4,6 +4,7 @@ import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'fra
 import { useEffect, useRef, useState } from 'react';
 import { SHAYARI } from '@/content/secret-shayari';
 import { track } from '@/lib/track';
+import { maafi } from '@/lib/maafi';
 
 // Scroll windows in which each page turns. The last page never turns.
 const FLIPS: [number, number][] = [
@@ -33,6 +34,7 @@ export function Book({ p, className = '' }: { p: MotionValue<number>; className?
   const toggle = (i: number) => {
     audio.current?.pause();
     if (playing === i) return setPlaying(null);
+    maafi.pause(); // one voice at a time; the mini player can resume the song
     const a = new Audio(SHAYARI[i].audio);
     audio.current = a;
     a.onended = () => setPlaying(null);
