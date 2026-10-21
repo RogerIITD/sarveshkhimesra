@@ -60,7 +60,8 @@ export function Experience() {
         <>
           <header className="fixed top-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-4 md:px-8 h-14 font-mono text-xs text-white [text-shadow:0_1px_8px_rgb(0_0_0/0.8)]">
             <span className="font-semibold">◆ sarvesh</span>
-            <nav aria-label="Chapters" className="hidden md:flex gap-5">
+            <span className="hidden md:inline lg:hidden opacity-90">{CHAPTERS.find((c) => c.id === active)?.label}</span>
+            <nav aria-label="Chapters" className="hidden lg:flex gap-5">
               {CHAPTERS.map((c) => (
                 <button
                   key={c.id}

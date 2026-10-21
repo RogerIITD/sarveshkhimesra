@@ -327,7 +327,7 @@ function PersonaChips({ persona, onPick, pillId, className = '' }: { persona: Pe
             aria-checked={active}
             data-target={`persona-${p.id}`}
             onClick={(e) => onPick(p.id, { x: e.clientX, y: e.clientY })}
-            className={`relative px-2.5 py-1 rounded-md font-mono text-[11px] transition-colors ${active ? 'text-bg' : 'text-ink/75 hover:text-ink'}`}
+            className={`relative px-2.5 py-1 rounded-md font-mono text-[11px] whitespace-nowrap transition-colors ${active ? 'text-bg' : 'text-ink/75 hover:text-ink'}`}
           >
             {active && <motion.span layoutId={pillId} className="absolute inset-0 rounded-md bg-accent" transition={{ type: 'spring', stiffness: 500, damping: 38 }} />}
             <span className="relative">
@@ -344,10 +344,10 @@ function TopBar({ persona, onOpen, onPersona, onStory }: { persona: Persona; onO
   return (
     <header className="absolute top-0 inset-x-0 z-[950] h-8 flex items-center justify-between px-4 bg-panel/60 backdrop-blur-xl border-b border-line font-mono text-xs">
       <div className="flex items-center gap-5">
-        <button onClick={onStory} className="font-semibold text-accent" title="back to the story">◆ sarvesh-os</button>
-        <button onClick={onStory} className="text-ink/80 hover:text-ink">↺ story</button>
+        <button onClick={onStory} className="font-semibold text-accent whitespace-nowrap" title="back to the story">◆ sarvesh-os</button>
+        <button onClick={onStory} className="text-ink/80 hover:text-ink whitespace-nowrap">↺ story</button>
         {(['about', 'shayari', 'contact'] as AppId[]).map((id) => (
-          <button key={id} onClick={(e) => onOpen(id, e.currentTarget)} className="text-ink/80 hover:text-ink">
+          <button key={id} onClick={(e) => onOpen(id, e.currentTarget)} className="hidden lg:inline text-ink/80 hover:text-ink">
             {id}
           </button>
         ))}
@@ -372,7 +372,7 @@ function Clock() {
   if (!now) return <span className="tabular-nums opacity-0">00:00</span>;
   return (
     <span className="tabular-nums">
-      {now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}{' '}
+      <span className="hidden lg:inline">{now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })} </span>
       {now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false })}
     </span>
   );

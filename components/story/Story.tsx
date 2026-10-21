@@ -168,7 +168,7 @@ function Engineer({ p }: { p: MotionValue<number> }) {
           progress={p}
           from={0}
           to={0.35}
-          className="mt-4 md:mt-6 text-[26px] sm:text-3xl md:text-6xl font-semibold tracking-tight leading-[1.15] md:leading-[1.1] text-ink max-w-5xl"
+          className="mt-4 md:mt-6 text-[26px] sm:text-3xl md:text-6xl [@media(max-height:640px)]:text-[22px] font-semibold tracking-tight leading-[1.15] md:leading-[1.1] text-ink max-w-5xl"
         />
         <div className="mt-6 md:mt-12 grid gap-3 md:gap-4 md:grid-cols-3">
           {PILLARS.map((x, i) => (
@@ -176,7 +176,7 @@ function Engineer({ p }: { p: MotionValue<number> }) {
               <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur p-4 md:p-5">
                 <p className="font-mono text-[11px] text-accent">0{i + 1}</p>
                 <p className="mt-1 md:mt-2 text-base md:text-xl text-ink font-medium">{x.t}</p>
-                <p className="mt-1 md:mt-2 text-xs md:text-sm text-dim leading-relaxed">{x.d}</p>
+                <p className="mt-1 md:mt-2 text-xs md:text-sm text-dim leading-relaxed [@media(max-height:640px)]:hidden">{x.d}</p>
               </div>
             </Reveal>
           ))}
@@ -212,7 +212,8 @@ function Poet({ p }: { p: MotionValue<number> }) {
           <Couplet key={i} text={s.text} p={p} index={i} playing={playing === i} onToggle={() => toggle(i)} />
         ))}
       </div>
-      <Reveal progress={p} at={[0.78, 0.9]} className="mt-6 max-w-md rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur">
+      {/* on very short phones there is no room under the couplet; Maafi is one tap away in the desktop */}
+      <Reveal progress={p} at={[0.78, 0.9]} className="[@media(max-height:640px)]:hidden mt-6 max-w-md rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur">
         <MaafiApp />
       </Reveal>
     </div>
@@ -234,7 +235,7 @@ function Couplet({ text, p, index, playing, onToggle }: { text: string; p: Motio
   return (
     <motion.div style={{ opacity, filter, y }} className={`absolute inset-x-0 top-0 ${live ? '' : 'pointer-events-none'}`}>
       {text.split('\n').map((l) => (
-        <p key={l} className="font-hindi text-3xl md:text-5xl leading-[1.6] text-ink">
+        <p key={l} className="font-hindi text-[26px] sm:text-3xl md:text-5xl [@media(max-height:640px)]:text-[22px] leading-[1.6] text-ink">
           {l}
         </p>
       ))}
