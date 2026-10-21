@@ -36,6 +36,9 @@ export type Photo = { src: string; alt: string; caption: string; video?: string 
 
 export const CAMERA_ROLL: Photo[] = [
   { src: '/images/os/office-trio.jpg', alt: 'Sarvesh with two colleagues in the Razorpay office', caption: 'Office of the COO starter pack: one polo, one black shirt, one watch worth more than my laptop.' },
+  { src: '/images/os/graduation.jpg', alt: 'Sarvesh in a convocation gown holding his IIT Delhi degree', caption: "IIT Delhi convocation. The gown was rented; the smile wasn't." },
+  { src: '/images/os/cheers-yash.jpg', alt: 'Sarvesh and Yash clinking glasses at a bar', caption: 'Yash, my not-so-college roommate. Two glasses, one toast, zero regrets.' },
+  { src: '/images/os/blr-birthday.jpg', alt: 'Friends gathered in a living room decorated for a birthday', caption: "Bengaluru culture: one balloon wall, a living room full of friends, and everyone 'leaving by 11'." },
   { src: '/images/os/park-phone.jpg', alt: 'Sarvesh sitting on grass in a park, holding a phone', caption: 'Touching grass. Still holding the phone. Baby steps.' },
   { src: '/images/os/redbull-selfie.jpg', alt: 'Selfie with teammates and Red Bull cans', caption: 'Sprint planning. Red Bull was a key stakeholder.' },
   { src: '/images/os/green-lasers.jpg', alt: 'Two silhouettes under green laser stars', caption: 'Production is down. Vibes are up.' },
@@ -57,6 +60,7 @@ export const SPORTS: { tab: string; photos: Photo[]; note?: string }[] = [
   {
     tab: 'tennis',
     photos: [
+      { src: '/images/os/tennis-forehand.jpg', alt: 'Sarvesh stretching for a forehand on a night court', caption: "Full-stretch forehand. My partner's face says it was going out." },
       { src: '/images/photos/tennis-duo.jpg', alt: 'Tennis with a partner', caption: 'Lost the match, won the photo.' },
     ],
   },

@@ -226,8 +226,15 @@ function Poet({ p }: { p: MotionValue<number> }) {
 /* ── 03 athlete ───────────────────────────────────────── */
 const COURT = ['M0 0 H1097 V2377 H0 Z', 'M137 0 V2377', 'M960 0 V2377', 'M137 548 H960', 'M137 1829 H960', 'M548 548 V1829', 'M-40 1188 H1137'];
 
-// squash → cricket → the wall, dealt onto the court one by one
-const DECK = [SPORTS[2].photos[0], SPORTS[3].photos[0], SPORTS[0].photos[0]];
+// squash → cricket → the wall → tennis on top, dealt onto the court one by one
+const DECK = [SPORTS[2].photos[0], SPORTS[3].photos[0], SPORTS[0].photos[0], SPORTS[1].photos[0]];
+const TILT = [-9, -2, 5, 10];
+const NUDGE = [
+  [-36, 12],
+  [-12, -8],
+  [14, 10],
+  [32, -4],
+];
 
 function Athlete({ p }: { p: MotionValue<number> }) {
   const draw = useTransform(p, [0, 0.45], [0, 1]);
@@ -263,14 +270,14 @@ function Athlete({ p }: { p: MotionValue<number> }) {
         </div>
         <div className="relative w-40 h-60 md:w-72 md:h-[26rem] shrink-0 self-center md:mr-10">
           {DECK.map((ph, i) => (
-            <Reveal key={ph.src} progress={p} at={[0.3 + i * 0.12, 0.45 + i * 0.12]} x={120} y={30} className="absolute inset-0">
+            <Reveal key={ph.src} progress={p} at={[0.28 + i * 0.1, 0.42 + i * 0.1]} x={120} y={30} className="absolute inset-0">
               <div
                 className="relative w-full h-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl shadow-black/60"
-                style={{ transform: `rotate(${[-7, 3, 9][i]}deg) translate(${[-30, 0, 30][i]}px, ${[10, -6, 14][i]}px)` }}
+                style={{ transform: `rotate(${TILT[i]}deg) translate(${NUDGE[i][0]}px, ${NUDGE[i][1]}px)` }}
               >
-                <Image src={ph.src} alt={ph.alt} fill sizes="300px" className="object-cover" />
+                <Image src={ph.src} alt={ph.alt} fill sizes="300px" className="object-cover object-[40%_50%]" />
                 <p
-                  className={`absolute inset-x-0 bottom-0 p-3 pt-10 text-[11px] md:text-xs text-white/90 leading-snug bg-gradient-to-t from-black/85 to-transparent ${i < DECK.length - 1 ? 'hidden md:block' : ''}`}
+                  className={`absolute inset-x-0 bottom-0 p-3 pt-10 text-[11px] md:text-xs text-white/90 leading-snug bg-gradient-to-t from-black/85 to-transparent ${i < DECK.length - 1 ? 'hidden' : ''}`}
                 >
                   {ph.caption}
                 </p>
