@@ -5,7 +5,8 @@ import { track } from '@/lib/track';
 
 const MILESTONES = [25, 50, 75, 100] as const;
 
-export function MaafiApp() {
+/** `big` is the full-stage version used in the story's songwriter moment. */
+export function MaafiApp({ big = false }: { big?: boolean }) {
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -65,15 +66,19 @@ export function MaafiApp() {
   const pct = duration ? (time / duration) * 100 : 0;
 
   return (
-    <div className="p-5 flex flex-col gap-5 h-full" data-target="song-player">
-      <div className="flex items-center gap-4">
-        <div className={`w-20 h-20 rounded-full shrink-0 grid place-items-center bg-[conic-gradient(from_0deg,#ec4899,#f59e0b,#8b5cf6,#ec4899)] ${playing ? 'animate-spin-slow' : ''}`}>
-          <div className="w-6 h-6 rounded-full bg-panel border border-line" />
+    <div className={`flex flex-col h-full ${big ? 'gap-8' : 'p-5 gap-5'}`} data-target="song-player">
+      <div className={`flex items-center ${big ? 'gap-6 md:gap-10' : 'gap-4'}`}>
+        <div
+          className={`rounded-full shrink-0 grid place-items-center bg-[conic-gradient(from_0deg,#ec4899,#f59e0b,#8b5cf6,#ec4899)] ${
+            big ? 'w-28 h-28 md:w-48 md:h-48 [@media(max-height:640px)]:w-24 [@media(max-height:640px)]:h-24 shadow-[0_0_80px_-10px_rgb(236_72_153/0.5)]' : 'w-20 h-20'
+          } ${playing ? 'animate-spin-slow' : ''}`}
+        >
+          <div className={`rounded-full bg-panel border border-line ${big ? 'w-8 h-8 md:w-12 md:h-12' : 'w-6 h-6'}`} />
         </div>
         <div className="min-w-0">
-          <p className="text-xl font-semibold text-ink">Maafi</p>
-          <p className="text-sm text-dim">written &amp; sung by Sarvesh Khimesra</p>
-          <p className="text-xs text-dim/70 mt-1 font-mono">no autotune was harmed. some was used.</p>
+          <p className={`font-semibold text-ink ${big ? 'text-4xl md:text-7xl tracking-tight' : 'text-xl'}`}>Maafi</p>
+          <p className={`text-dim ${big ? 'mt-2 text-base md:text-xl' : 'text-sm'}`}>written &amp; sung by Sarvesh Khimesra</p>
+          <p className={`text-dim/70 mt-1 font-mono ${big ? 'text-xs md:text-sm' : 'text-xs'}`}>no autotune was harmed. some was used.</p>
         </div>
       </div>
       <div className="flex items-center gap-3">

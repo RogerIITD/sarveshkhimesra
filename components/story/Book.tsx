@@ -7,8 +7,8 @@ import { track } from '@/lib/track';
 
 // Scroll windows in which each page turns. The last page never turns.
 const FLIPS: [number, number][] = [
-  [0.2, 0.36],
-  [0.48, 0.64],
+  [0.12, 0.26],
+  [0.32, 0.46],
 ];
 const NUMERALS = ['१', '२', '३'];
 const PAPER = 'bg-[#f1e6d2] text-[#2b1b13]';

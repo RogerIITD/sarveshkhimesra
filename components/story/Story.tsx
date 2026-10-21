@@ -47,7 +47,7 @@ export function Story({ onActive, onEnterOS }: Props) {
       <Chapter id="engineer" screens={4} enter="pill" background="#0b0d12" accent="251 191 36" z={2} onProgress={report}>
         {(p) => <Engineer p={p} />}
       </Chapter>
-      <Chapter id="poet" screens={4} enter="circle" background="#120b09" accent="244 114 82" z={3} className="cursor-pen" onProgress={report}>
+      <Chapter id="poet" screens={5} enter="circle" background="#120b09" accent="244 114 82" z={3} className="cursor-pen" onProgress={report}>
         {(p) => <Poet p={p} />}
       </Chapter>
       <Chapter id="athlete" screens={4} enter="pill" background="#0a1a14" accent="190 242 100" z={4} className="cursor-racquet" onProgress={report}>
@@ -188,16 +188,37 @@ function Engineer({ p }: { p: MotionValue<number> }) {
 }
 
 /* ── 02 poet ──────────────────────────────────────────── */
+// Two acts on one pinned screen: the notebook, then (once its last page has had
+// its moment) the book lifts away and the song gets the whole stage.
 function Poet({ p }: { p: MotionValue<number> }) {
+  const bookOpacity = useTransform(p, [0.58, 0.66], [1, 0]);
+  const bookY = useTransform(p, [0.58, 0.66], [0, -80]);
+  const bookEvents = useTransform(p, (v) => (v < 0.62 ? 'auto' : 'none'));
+  const songEvents = useTransform(p, (v) => (v > 0.68 ? 'auto' : 'none'));
+  const glow = useTransform(p, [0.64, 0.78], [0, 1]);
   return (
-    <div className="relative h-full flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
+    <div className="relative h-full">
       <p className="absolute -right-8 bottom-0 font-hindi text-[30vw] leading-none text-white/[0.03] select-none pointer-events-none">शायरी</p>
-      <Kicker n="02" label="the shayar" />
-      <Book p={p} className="mt-6 md:mt-8" />
-      {/* on short screens there is no room under the book; Maafi is one tap away in the desktop */}
-      <Reveal progress={p} at={[0.78, 0.9]} className="[@media(max-height:820px)]:hidden mt-6 max-w-md rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur">
-        <MaafiApp />
-      </Reveal>
+      <motion.div style={{ opacity: bookOpacity, y: bookY, pointerEvents: bookEvents }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
+        <Kicker n="02" label="the shayar" />
+        <Book p={p} className="mt-6 md:mt-8" />
+      </motion.div>
+      <motion.div style={{ pointerEvents: songEvents }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
+        <motion.div style={{ opacity: glow }} className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[70vmin] h-[70vmin] rounded-full bg-[radial-gradient(circle,rgb(236_72_153/0.12),transparent_65%)] pointer-events-none" />
+        <Reveal progress={p} at={[0.64, 0.74]}>
+          <Kicker n="02" label="the songwriter" />
+        </Reveal>
+        <Words
+          text="And sometimes the lines refuse to stay on paper."
+          progress={p}
+          from={0.64}
+          to={0.8}
+          className="mt-4 md:mt-6 text-2xl md:text-5xl [@media(max-height:640px)]:text-xl font-semibold tracking-tight leading-[1.15] text-ink max-w-3xl"
+        />
+        <Reveal progress={p} at={[0.74, 0.88]} y={40} className="mt-8 md:mt-14 max-w-3xl">
+          <MaafiApp big />
+        </Reveal>
+      </motion.div>
     </div>
   );
 }

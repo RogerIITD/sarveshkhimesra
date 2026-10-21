@@ -61,7 +61,7 @@ export const PERSONAS: Persona[] = [
     sub: 'India and Ireland, one camera roll at a time.',
     font: 'sans',
     apps: ['travel', 'camera'],
-    wallpaper: { kind: 'image', src: '/images/photos/IMG_8254.jpg' },
+    wallpaper: { kind: 'image', src: '/images/os/traveller-bg.jpg' },
     wipe: '#08131c',
   },
 ];
