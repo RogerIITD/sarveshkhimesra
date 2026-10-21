@@ -32,7 +32,7 @@ export const WALLPAPER = {
 };
 
 /** `src` is the image (or a video's poster frame); `video` makes it a silent looping clip. */
-// Looping clip on the opening screen.
+// Looping clip of the gang, the last card dealt in "my people".
 export const GANG: Photo = {
   src: '/images/os/gang-poster.jpg',
   video: '/images/os/gang.mp4',
@@ -167,4 +167,5 @@ export const PEOPLE: { photo: Photo; shape: 'L' | 'P' }[] = [
   { photo: pick('graduation.jpg'), shape: 'P' },
   { photo: pick('hill-terrace.jpg'), shape: 'P' },
   { photo: pick('sherwani-selfie.jpg'), shape: 'P' },
+  { photo: GANG, shape: 'P' },
 ];

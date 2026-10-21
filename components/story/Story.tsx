@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { BIO, GANG, HERO, PEOPLE, SPORTS, TRAVEL } from '@/content/os';
+import { BIO, HERO, PEOPLE, SPORTS, TRAVEL } from '@/content/os';
 import { BOOT_LINES } from '@/content/personas';
 import { MaafiApp } from '@/components/os/apps/MaafiApp';
 import { useScramble } from '@/components/os/useScramble';
@@ -106,21 +106,6 @@ function Hello({ p }: { p: MotionValue<number> }) {
       >
         {HERO.caption}
       </motion.p>
-      {/* the gang, as a tilted looping polaroid pinned over the photo */}
-      <motion.figure
-        style={{ opacity: fade }}
-        initial={{ opacity: 0, y: 30, rotate: 0 }}
-        animate={{ opacity: 1, y: 0, rotate: 4 }}
-        transition={{ delay: 1.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute z-[1] right-6 top-40 w-28 md:top-auto md:right-14 md:bottom-28 md:w-48 lg:w-56 [@media(max-height:700px)]:hidden md:[@media(max-height:700px)]:block md:[@media(max-height:760px)]:w-36"
-      >
-        <div className="rounded-lg bg-[#f4efe6] p-1.5 pb-2 md:p-2 md:pb-3 shadow-2xl shadow-black/60">
-          <div className="relative aspect-[536/720] overflow-hidden rounded-[4px] bg-black">
-            <Media item={GANG} sizes="224px" />
-          </div>
-          <figcaption className="hidden md:block mt-2 px-0.5 text-[11px] leading-snug text-[#2b1b13]">{GANG.caption}</figcaption>
-        </div>
-      </motion.figure>
       <motion.div
         style={{ opacity: fade, y: lift }}
         className="relative h-full flex flex-col justify-end pb-20 md:pb-0 md:justify-center px-6 md:px-16 max-w-6xl mx-auto"

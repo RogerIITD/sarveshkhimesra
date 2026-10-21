@@ -1,25 +1,26 @@
 'use client';
 
-import Image from 'next/image';
 import { AnimatePresence, motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { PEOPLE } from '@/content/os';
+import { Media } from '@/components/os/Media';
 import { Words } from './Words';
 
 // Desktop: polaroids fly in and land in a scattered collage (left/top in % of the stage).
 const SLOTS: { left: number; top: number; rot: number }[] = [
   { left: 0, top: 2, rot: -4 },
-  { left: 19, top: 36, rot: 3 },
+  { left: 19, top: 47, rot: 3 },
   { left: 37, top: 0, rot: -3 },
   { left: 54, top: 8, rot: 4 },
   { left: 76, top: 2, rot: -5 },
   { left: 2, top: 50, rot: 4 },
-  { left: 36, top: 56, rot: -2 },
+  { left: 39, top: 56, rot: -2 },
   { left: 77, top: 48, rot: 3 },
   { left: 58, top: 52, rot: -4 },
+  { left: 19, top: -2, rot: 2 },
 ];
 // Phones: dealt onto one stack, slightly fanned.
-const STACK_ROT = [-3, 2, -1, 3, -2, 1, -3, 2, 0];
+const STACK_ROT = [-3, 2, -1, 3, -2, 1, -3, 2, -1, 0];
 
 const windowFor = (i: number): [number, number] => [0.1 + i * 0.085, 0.22 + i * 0.085];
 
@@ -102,7 +103,7 @@ function Card({ i, p, desktop, photo, shape }: { i: number; p: MotionValue<numbe
     >
       <motion.figure style={{ y, x, rotate, opacity, width }} className="pointer-events-auto rounded-md bg-[#f4efe6] p-1.5 pb-2 md:p-2 shadow-2xl shadow-black/60 hover:!z-50">
         <div className={`relative ${shape === 'L' ? 'aspect-[4/3]' : 'aspect-[3/4]'} overflow-hidden rounded-[3px] bg-black`}>
-          <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 768px) 80vw, 240px" className="object-cover" />
+          <Media item={photo} sizes="(max-width: 768px) 80vw, 240px" />
         </div>
         <figcaption className="hidden md:block mt-1.5 text-[10px] lg:text-[11px] leading-snug text-[#2b1b13] line-clamp-2">{photo.caption}</figcaption>
       </motion.figure>
