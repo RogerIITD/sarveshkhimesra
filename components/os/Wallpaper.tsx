@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import type { Persona } from '@/content/personas';
-import { SHAYARI } from '@/content/secret-shayari';
+import { ONE_LINERS } from '@/content/secret-shayari';
 import { BouncingBalls } from '@/components/BouncingBalls';
 
 // Base wallpaper for the active persona + a hidden layer that only shows
@@ -77,7 +77,7 @@ function Secret({ persona }: { persona: Persona['id'] }) {
   if (persona === 'poet')
     return (
       <div className="absolute inset-0 grid grid-cols-2 gap-x-24 gap-y-16 p-24 content-center">
-        {SHAYARI.flatMap((s) => s.text.split('\n')).map((line, i) => (
+        {ONE_LINERS.slice(0, 4).flatMap((s) => s.split('\n')).map((line, i) => (
           <p key={i} className={`font-hindi text-2xl text-accent/40 ${i % 2 ? 'text-right' : ''}`}>
             {line}
           </p>

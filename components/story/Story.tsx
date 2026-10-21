@@ -49,7 +49,7 @@ export function Story({ onActive, onEnterOS }: Props) {
       <Chapter id="engineer" screens={4} enter="pill" background="#0b0d12" accent="251 191 36" z={2} onProgress={report}>
         {(p) => <Engineer p={p} />}
       </Chapter>
-      <Chapter id="poet" screens={5} enter="circle" background="#120b09" accent="244 114 82" z={3} className="cursor-pen" onProgress={report}>
+      <Chapter id="poet" screens={6} enter="circle" background="#120b09" accent="244 114 82" z={3} className="cursor-pen" onProgress={report}>
         {(p) => <Poet p={p} />}
       </Chapter>
       <Chapter id="athlete" screens={4} enter="pill" background="#0a1a14" accent="190 242 100" z={4} className="cursor-racquet" onProgress={report}>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { SHAYARI } from '@/content/secret-shayari';
+import { NAZM, ONE_LINERS, SHAYARI } from '@/content/secret-shayari';
 import { track } from '@/lib/track';
 import { maafi } from '@/lib/maafi';
 
@@ -21,7 +21,9 @@ export function ShayariApp() {
     const a = new Audio(SHAYARI[i].audio);
     audio.current = a;
     a.onended = () => setPlaying(null);
-    a.play().then(() => track({ name: 'audio_play', track: `shayari-${i + 1}` })).catch(() => setPlaying(null));
+    a.play()
+      .then(() => track({ name: 'audio_play', track: `shayari-${i + 1}` }))
+      .catch(() => setPlaying(null));
     setPlaying(i);
   }
 
@@ -29,7 +31,11 @@ export function ShayariApp() {
     <div className="p-4 space-y-3">
       <p className="text-xs text-dim font-mono">{'// written by me, read by me. hit ▶ to hear it.'}</p>
       {SHAYARI.map((s, i) => (
-        <article key={i} className={`rounded-xl border p-4 transition-colors ${playing === i ? 'border-accent bg-accent/5' : 'border-line'}`} data-target={`shayari-${i}`}>
+        <article
+          key={i}
+          className={`rounded-xl border p-4 transition-colors ${playing === i ? 'border-accent bg-accent/5' : 'border-line'}`}
+          data-target={`shayari-${i}`}
+        >
           <p className="font-hindi text-lg leading-loose text-ink whitespace-pre-line">{s.text}</p>
           <button
             onClick={() => toggle(i)}
@@ -41,6 +47,25 @@ export function ShayariApp() {
           </button>
         </article>
       ))}
+
+      <p className="pt-3 text-xs text-dim font-mono">{'// written, not recorded (yet)'}</p>
+      <article className="rounded-xl border border-line p-4" data-target="shayari-nazm">
+        <p className="font-hindi text-accent text-sm mb-2">{NAZM.title}</p>
+        {NAZM.lines.map((l) => (
+          <p key={l} className="font-hindi text-lg leading-loose text-ink">
+            {l}
+          </p>
+        ))}
+      </article>
+
+      <p className="pt-3 text-xs text-dim font-mono">{'// one-liners'}</p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {ONE_LINERS.map((s) => (
+          <article key={s} className="rounded-xl border border-line p-4">
+            <p className="font-hindi text-base leading-relaxed text-ink whitespace-pre-line">{s}</p>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }

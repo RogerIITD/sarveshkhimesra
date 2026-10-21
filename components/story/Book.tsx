@@ -2,16 +2,20 @@
 
 import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { SHAYARI } from '@/content/secret-shayari';
+import { NAZM, SHAYARI } from '@/content/secret-shayari';
 import { track } from '@/lib/track';
 import { maafi } from '@/lib/maafi';
 
-// Scroll windows in which each page turns. The last page never turns.
-const FLIPS: [number, number][] = [
-  [0.12, 0.26],
-  [0.32, 0.46],
+// Pages: the three recorded couplets, then the nazm over two pages (no recording yet).
+const PAGES: { text: string; audio?: string; note?: string }[] = [
+  ...SHAYARI,
+  { text: NAZM.lines.slice(0, 3).join('\n'), note: `${NAZM.title} — i` },
+  { text: NAZM.lines.slice(3).join('\n'), note: `${NAZM.title} — ii` },
 ];
-const NUMERALS = ['१', '२', '३'];
+// Scroll windows in which each page turns, spread evenly; the last page never turns.
+const TURN_SPAN = 0.44 / (PAGES.length - 1);
+const FLIPS: [number, number][] = PAGES.slice(1).map((_, i) => [0.08 + i * TURN_SPAN, 0.08 + i * TURN_SPAN + TURN_SPAN * 0.8]);
+const NUMERALS = ['१', '२', '३', '४', '५', '६'];
 const PAPER = 'bg-[#f1e6d2] text-[#2b1b13]';
 const RULED = 'bg-[repeating-linear-gradient(to_bottom,transparent_0,transparent_35px,rgb(43_27_19/0.07)_36px)]';
 
@@ -35,7 +39,7 @@ export function Book({ p, className = '' }: { p: MotionValue<number>; className?
     audio.current?.pause();
     if (playing === i) return setPlaying(null);
     maafi.pause(); // one voice at a time; the mini player can resume the song
-    const a = new Audio(SHAYARI[i].audio);
+    const a = new Audio(PAGES[i].audio);
     audio.current = a;
     a.onended = () => setPlaying(null);
     a.play()
@@ -62,23 +66,38 @@ export function Book({ p, className = '' }: { p: MotionValue<number>; className?
           <p className="font-mono text-xs text-[#2b1b13]/60">scroll to turn the page →</p>
         </div>
 
-        {SHAYARI.map((s, i) => (
+        {PAGES.map((s, i) => (
           <Leaf key={i} i={i} p={p} live={current === i}>
             <div className="h-full flex flex-col justify-between">
               <div className="space-y-2">
                 {s.text.split('\n').map((l) => (
-                  <p key={l} className="font-hindi text-xl md:text-xl lg:text-[26px] [@media(max-height:640px)]:text-lg leading-[1.7]">
+                  <p
+                    key={l}
+                    className={`font-hindi ${
+                      s.audio
+                        ? 'text-xl md:text-xl lg:text-[26px] [@media(max-height:640px)]:text-lg leading-[1.7]'
+                        : 'text-lg lg:text-xl [@media(max-height:640px)]:text-sm leading-[1.6]'
+                    }`}
+                  >
                     {l}
                   </p>
                 ))}
               </div>
               <div className="flex items-end justify-between">
-                <button onClick={() => toggle(i)} className="inline-flex items-center gap-2.5 sm:gap-3 text-[#b4533a] font-mono text-xs sm:text-sm whitespace-nowrap" data-target={`story-shayari-${i}`}>
-                  <span className="w-10 h-10 rounded-full border border-[#b4533a] grid place-items-center">{playing === i ? '◼' : '▶'}</span>
-                  {playing === i ? 'playing…' : 'hear it in my voice'}
-                </button>
+                {s.audio ? (
+                  <button
+                    onClick={() => toggle(i)}
+                    className="inline-flex items-center gap-2.5 sm:gap-3 text-[#b4533a] font-mono text-xs sm:text-sm whitespace-nowrap"
+                    data-target={`story-shayari-${i}`}
+                  >
+                    <span className="w-10 h-10 rounded-full border border-[#b4533a] grid place-items-center">{playing === i ? '◼' : '▶'}</span>
+                    {playing === i ? 'playing…' : 'hear it in my voice'}
+                  </button>
+                ) : (
+                  <span className="font-hindi text-sm text-[#b4533a]">{s.note}</span>
+                )}
                 <span className="font-mono text-xs text-[#2b1b13]/50 whitespace-nowrap">
-                  {i + 1} / {SHAYARI.length}
+                  {i + 1} / {PAGES.length}
                 </span>
               </div>
             </div>
@@ -109,7 +128,9 @@ function Leaf({ i, p, live, children }: { i: number; p: MotionValue<number>; liv
         <motion.div style={{ opacity: frontShade }} className="absolute inset-0 rounded-[inherit] bg-black pointer-events-none" />
       </div>
       {flip && (
-        <div className={`absolute inset-0 rounded-l-md hidden md:flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)] ${PAPER} ${RULED}`}>
+        <div
+          className={`absolute inset-0 rounded-l-md hidden md:flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)] ${PAPER} ${RULED}`}
+        >
           <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/15 to-transparent" />
           <p className="font-hindi text-8xl text-[#b4533a]/25">{NUMERALS[i]}</p>
           <p className="mt-2 font-hindi text-2xl text-[#2b1b13]/50 italic">~ स.</p>
