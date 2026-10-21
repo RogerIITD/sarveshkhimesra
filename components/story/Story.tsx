@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { BIO, CAMERA_ROLL, GANG, HERO, SPORTS, TRAVEL } from '@/content/os';
+import { BIO, GANG, HERO, PEOPLE, SPORTS, TRAVEL } from '@/content/os';
 import { BOOT_LINES } from '@/content/personas';
 import { MaafiApp } from '@/components/os/apps/MaafiApp';
 import { useScramble } from '@/components/os/useScramble';
@@ -12,6 +12,7 @@ import { track } from '@/lib/track';
 import { BouncingBalls } from '@/components/BouncingBalls';
 import { Chapter } from './Chapter';
 import { Book } from './Book';
+import { People } from './People';
 import { Reveal, Words } from './Words';
 
 export const CHAPTERS = [
@@ -20,7 +21,8 @@ export const CHAPTERS = [
   { id: 'poet', label: '02 poet' },
   { id: 'athlete', label: '03 athlete' },
   { id: 'traveller', label: '04 traveller' },
-  { id: 'boot', label: '05 sarvesh-os' },
+  { id: 'people', label: '05 my people' },
+  { id: 'boot', label: '06 sarvesh-os' },
 ] as const;
 
 type Props = { onActive: (id: string) => void; onEnterOS: () => void };
@@ -56,7 +58,10 @@ export function Story({ onActive, onEnterOS }: Props) {
       <Chapter id="traveller" screens={5} enter="circle" background="#08121b" accent="125 211 252" z={5} className="cursor-plane" onProgress={report}>
         {(p) => <Traveller p={p} />}
       </Chapter>
-      <Chapter id="boot" screens={2} enter="pill" background="#050608" accent="52 211 153" z={6} last onProgress={report}>
+      <Chapter id="people" screens={5} enter="pill" background="#120e0a" accent="251 191 36" z={6} onProgress={report}>
+        {(p) => <People p={p} />}
+      </Chapter>
+      <Chapter id="boot" screens={2} enter="circle" background="#050608" accent="52 211 153" z={7} last onProgress={report}>
         {(p) => <Boot p={p} onEnterOS={onEnterOS} />}
       </Chapter>
     </div>
@@ -297,7 +302,9 @@ function Athlete({ p }: { p: MotionValue<number> }) {
 }
 
 /* ── 04 traveller ─────────────────────────────────────── */
-const STRIP = [...TRAVEL[0].photos, ...TRAVEL[1].photos.slice(0, 9), ...CAMERA_ROLL.slice(0, 3)];
+// Ireland first, then a few India trips (the people shots live in "my people")
+const IN_PEOPLE = new Set(PEOPLE.map((x) => x.photo.src));
+const STRIP = [...TRAVEL[1].photos, ...TRAVEL[0].photos].filter((ph) => !IN_PEOPLE.has(ph.src));
 
 function Traveller({ p }: { p: MotionValue<number> }) {
   const track = useRef<HTMLDivElement>(null);
@@ -352,7 +359,7 @@ function Boot({ p, onEnterOS }: { p: MotionValue<number>; onEnterOS: () => void 
   return (
     <div className="h-full flex items-center justify-center px-6 pt-14 md:pt-0 font-mono">
       <div className="w-full max-w-2xl">
-        <Kicker n="05" label="sarvesh-os" />
+        <Kicker n="06" label="sarvesh-os" />
         <div className="mt-6 space-y-1.5 text-sm md:text-base text-dim min-h-[180px]">
           {BOOT_LINES.slice(0, lines).map((l) => (
             <p key={l}>

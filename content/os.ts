@@ -153,3 +153,18 @@ export const APP_BY_ID = Object.fromEntries(APPS.map((a) => [a.id, a])) as Recor
 
 // Opened automatically on a first desktop visit so the good stuff is seen.
 export const FIRST_VISIT_APPS: AppId[] = ['about', 'shayari'];
+
+// "05 — my people" in the story: friends, family, and a couple of me. L = landscape card, P = portrait.
+const ALL_PHOTOS = [...CAMERA_ROLL, ...TRAVEL.flatMap((t) => t.photos)];
+const pick = (file: string) => ALL_PHOTOS.find((p) => p.src.endsWith(file))!;
+export const PEOPLE: { photo: Photo; shape: 'L' | 'P' }[] = [
+  { photo: pick('krishvi-first-bday.jpg'), shape: 'L' },
+  { photo: pick('blr-birthday.jpg'), shape: 'L' },
+  { photo: pick('cheers-yash.jpg'), shape: 'P' },
+  { photo: pick('park-selfie.jpg'), shape: 'L' },
+  { photo: pick('redbull-selfie.jpg'), shape: 'L' },
+  { photo: pick('mahakal.jpg'), shape: 'P' },
+  { photo: pick('graduation.jpg'), shape: 'P' },
+  { photo: pick('hill-terrace.jpg'), shape: 'P' },
+  { photo: pick('sherwani-selfie.jpg'), shape: 'P' },
+];
