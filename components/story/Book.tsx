@@ -71,11 +71,11 @@ export function Book({ p, className = '' }: { p: MotionValue<number>; className?
                 ))}
               </div>
               <div className="flex items-end justify-between">
-                <button onClick={() => toggle(i)} className="inline-flex items-center gap-3 text-[#b4533a] font-mono text-sm" data-target={`story-shayari-${i}`}>
+                <button onClick={() => toggle(i)} className="inline-flex items-center gap-2.5 sm:gap-3 text-[#b4533a] font-mono text-xs sm:text-sm whitespace-nowrap" data-target={`story-shayari-${i}`}>
                   <span className="w-10 h-10 rounded-full border border-[#b4533a] grid place-items-center">{playing === i ? '◼' : '▶'}</span>
                   {playing === i ? 'playing…' : 'hear it in my voice'}
                 </button>
-                <span className="font-mono text-xs text-[#2b1b13]/50">
+                <span className="font-mono text-xs text-[#2b1b13]/50 whitespace-nowrap">
                   {i + 1} / {SHAYARI.length}
                 </span>
               </div>
@@ -101,7 +101,7 @@ function Leaf({ i, p, live, children }: { i: number; p: MotionValue<number>; liv
       className="absolute inset-y-0 right-0 w-full md:w-1/2 origin-left [transform-style:preserve-3d]"
       aria-hidden={!live}
     >
-      <div className={`absolute inset-0 rounded-md md:rounded-l-none [backface-visibility:hidden] p-6 md:p-8 lg:p-10 ${PAPER} ${RULED}`}>
+      <div className={`absolute inset-0 rounded-md md:rounded-l-none [backface-visibility:hidden] p-5 sm:p-6 md:p-8 lg:p-10 ${PAPER} ${RULED}`}>
         <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/15 to-transparent pointer-events-none" />
         <div className="relative h-full">{children}</div>
         <motion.div style={{ opacity: frontShade }} className="absolute inset-0 rounded-[inherit] bg-black pointer-events-none" />

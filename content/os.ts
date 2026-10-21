@@ -39,6 +39,7 @@ export const CAMERA_ROLL: Photo[] = [
   { src: '/images/os/graduation.jpg', alt: 'Sarvesh in a convocation gown holding his IIT Delhi degree', caption: "IIT Delhi convocation. The gown was rented; the smile wasn't." },
   { src: '/images/os/cheers-yash.jpg', alt: 'Sarvesh and Yash clinking glasses at a bar', caption: 'Yash, my not-so-college roommate. Two glasses, one toast, zero regrets.' },
   { src: '/images/os/blr-birthday.jpg', alt: 'Friends gathered in a living room decorated for a birthday', caption: "Bengaluru culture: one balloon wall, a living room full of friends, and everyone 'leaving by 11'." },
+  { src: '/images/os/krishvi-first-bday.jpg', alt: "Family photo at little Krishvi's first birthday", caption: "Little Krishvi turns one. Whole family in one frame — the real milestone." },
   { src: '/images/os/park-phone.jpg', alt: 'Sarvesh sitting on grass in a park, holding a phone', caption: 'Touching grass. Still holding the phone. Baby steps.' },
   { src: '/images/os/redbull-selfie.jpg', alt: 'Selfie with teammates and Red Bull cans', caption: 'Sprint planning. Red Bull was a key stakeholder.' },
   { src: '/images/os/green-lasers.jpg', alt: 'Two silhouettes under green laser stars', caption: 'Production is down. Vibes are up.' },

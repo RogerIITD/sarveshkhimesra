@@ -77,7 +77,6 @@ function Hello({ p }: { p: MotionValue<number> }) {
   const scale = useTransform(p, [0, 1], [1.04, 1]);
   const fade = useTransform(p, [0, 0.6], [1, 0]);
   const lift = useTransform(p, [0, 0.6], [0, -80]);
-  const roles = ['AI Engineer', 'Shayar', 'Songwriter', 'Athlete', 'Traveller'];
   return (
     <>
       {/* Full-bleed on phones; anchored right on desktop so the silhouette isn't under the name. Opens as a rising pill. */}
@@ -116,19 +115,6 @@ function Hello({ p }: { p: MotionValue<number> }) {
         </motion.div>
         <p className="font-mono text-xs md:text-sm text-accent mb-4">&gt; whoami</p>
         <h1 className="text-5xl md:text-8xl font-semibold tracking-tight text-ink leading-[0.95] [text-shadow:0_2px_24px_rgb(0_0_0/0.55)]">{name}</h1>
-        <div className="mt-6 flex flex-wrap gap-x-3 gap-y-1 text-lg md:text-2xl text-ink/75 [text-shadow:0_1px_12px_rgb(0_0_0/0.8)]">
-          {roles.map((r, i) => (
-            <motion.span
-              key={r}
-              initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ delay: 0.9 + i * 0.12, duration: 0.5 }}
-            >
-              {r}
-              {i < roles.length - 1 && <span className="text-accent/70"> ·</span>}
-            </motion.span>
-          ))}
-        </div>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -196,14 +182,19 @@ function Poet({ p }: { p: MotionValue<number> }) {
   const bookEvents = useTransform(p, (v) => (v < 0.62 ? 'auto' : 'none'));
   const songEvents = useTransform(p, (v) => (v > 0.68 ? 'auto' : 'none'));
   const glow = useTransform(p, [0.64, 0.78], [0, 1]);
+  // keep the song's (blurred) words fully off stage until the book has left
+  const songOpacity = useTransform(p, [0.6, 0.64], [0, 1]);
   return (
     <div className="relative h-full">
       <p className="absolute -right-8 bottom-0 font-hindi text-[30vw] leading-none text-white/[0.03] select-none pointer-events-none">शायरी</p>
       <motion.div style={{ opacity: bookOpacity, y: bookY, pointerEvents: bookEvents }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
         <Kicker n="02" label="the shayar" />
-        <Book p={p} className="mt-6 md:mt-8" />
+        <Reveal progress={p} at={[0, 0.08]}>
+          <p className="mt-4 md:mt-6 font-hindi text-5xl md:text-7xl [@media(max-height:640px)]:text-4xl leading-[1.25] text-ink">सर्वेश</p>
+        </Reveal>
+        <Book p={p} className="mt-4 md:mt-6" />
       </motion.div>
-      <motion.div style={{ pointerEvents: songEvents }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
+      <motion.div style={{ pointerEvents: songEvents, opacity: songOpacity }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
         <motion.div style={{ opacity: glow }} className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[70vmin] h-[70vmin] rounded-full bg-[radial-gradient(circle,rgb(236_72_153/0.12),transparent_65%)] pointer-events-none" />
         <Reveal progress={p} at={[0.64, 0.74]}>
           <Kicker n="02" label="the songwriter" />
