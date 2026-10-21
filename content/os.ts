@@ -166,6 +166,6 @@ export const PEOPLE: { photo: Photo; shape: 'L' | 'P' }[] = [
   { photo: pick('mahakal.jpg'), shape: 'P' },
   { photo: pick('graduation.jpg'), shape: 'P' },
   { photo: pick('hill-terrace.jpg'), shape: 'P' },
-  { photo: pick('sherwani-selfie.jpg'), shape: 'P' },
+  { photo: pick('ireland-group.jpg'), shape: 'L' },
   { photo: GANG, shape: 'P' },
 ];
