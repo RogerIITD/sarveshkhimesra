@@ -299,11 +299,11 @@ function Traveller({ p }: { p: MotionValue<number> }) {
       <div className="px-6 md:px-16">
         <Kicker n="04" label="out of office" />
         <Words
-          text="India and Ireland, one camera roll at a time."
+          text="I don't travel to escape. I travel to find what I'm here for."
           progress={p}
           from={0}
           to={0.12}
-          className="mt-4 text-3xl md:text-5xl font-semibold tracking-tight text-ink"
+          className="mt-4 text-[26px] sm:text-3xl md:text-5xl [@media(max-height:640px)]:text-xl font-semibold tracking-tight leading-[1.15] text-ink max-w-4xl"
         />
       </div>
       {/* edges fade so photos (and captions) don't collide with the social rail as they slide */}

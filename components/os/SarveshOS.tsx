@@ -11,6 +11,7 @@ import { AppBody } from './AppBody';
 import { PersonaWipe } from './PersonaWipe';
 import { useScramble } from './useScramble';
 import { Wallpaper } from './Wallpaper';
+import { useBackLayer } from '@/lib/useBackLayer';
 import { SocialLinks } from '@/components/SocialLinks';
 import { Window } from './Window';
 
@@ -49,6 +50,7 @@ export function SarveshOS({ onStory }: { onStory: () => void }) {
   const { emitter, turbo } = useGame();
   const [wins, setWins] = useState<Win[]>([]);
   const [mobileApp, setMobileApp] = useState<AppId | null>(null);
+  useBackLayer(mobileApp !== null, () => setMobileApp(null));
   const [persona, setPersona] = useState<Persona>(PERSONA_BY_ID.engineer);
   const [wipe, setWipe] = useState<{ to: Persona; origin: Point } | null>(null);
   const zTop = useRef(10);
@@ -269,9 +271,15 @@ export function SarveshOS({ onStory }: { onStory: () => void }) {
               role="dialog"
               aria-label={APP_BY_ID[mobileApp].title}
               initial={{ y: '100%' }}
-              animate={{ y: 0 }}
+              animate={{ y: 0, x: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'tween', duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              // swipe right to go back, like iOS
+              drag="x"
+              dragDirectionLock
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={{ left: 0, right: 0.9 }}
+              onDragEnd={(_, i) => (i.offset.x > 90 || i.velocity.x > 500) && setMobileApp(null)}
               className="fixed inset-0 z-[950] bg-panel flex flex-col"
             >
               <header className="flex items-center gap-3 px-3 h-12 border-b border-line shrink-0">

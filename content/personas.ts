@@ -58,7 +58,7 @@ export const PERSONAS: Persona[] = [
     glyph: '✈',
     accent: '125 211 252',
     headline: 'Sarvesh, out of office.',
-    sub: 'India and Ireland, one camera roll at a time.',
+    sub: 'Some trips are holidays. The good ones are search parties — for me.',
     font: 'sans',
     apps: ['travel', 'camera'],
     wallpaper: { kind: 'image', src: '/images/os/traveller-bg.jpg' },

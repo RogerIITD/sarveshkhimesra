@@ -9,6 +9,7 @@ import { SocialLinks } from '@/components/SocialLinks';
 import { NowPlaying } from '@/components/NowPlaying';
 import { CHAPTERS, Story } from '@/components/story/Story';
 import { track } from '@/lib/track';
+import { useBackLayer } from '@/lib/useBackLayer';
 
 type Mode = 'story' | 'os';
 
@@ -50,10 +51,17 @@ export function Experience() {
     else window.scrollTo({ top, behavior: 'smooth' });
   };
 
-  const backToStory = () => {
+  const backToStory = useCallback(() => {
     setMode('story');
     requestAnimationFrame(() => window.scrollTo(0, 0));
-  };
+  }, []);
+  // back button on the desktop returns to the story (not for deep links, which start on the desktop)
+  const [fromStory, setFromStory] = useState(false);
+  useEffect(() => {
+    if (mode === 'os' && !new URLSearchParams(window.location.search).get('open')) setFromStory(true);
+    if (mode === 'story') setFromStory(false);
+  }, [mode]);
+  useBackLayer(mode === 'os' && fromStory, backToStory);
 
   return (
     <>

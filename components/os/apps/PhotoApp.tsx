@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { Photo } from '@/content/os';
 import { track } from '@/lib/track';
+import { useBackLayer } from '@/lib/useBackLayer';
 import { Media } from '../Media';
 
 type Tab = { tab: string; photos: Photo[]; note?: string };
@@ -12,6 +13,7 @@ export function PhotoApp({ tabs, intro }: { tabs: Tab[]; intro?: string }) {
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState<number | null>(null);
   const current = tabs[active];
+  useBackLayer(open !== null, () => setOpen(null));
 
   return (
     <div className="p-4 space-y-4">
