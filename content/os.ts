@@ -32,6 +32,14 @@ export const WALLPAPER = {
 };
 
 /** `src` is the image (or a video's poster frame); `video` makes it a silent looping clip. */
+// Looping clip on the opening screen.
+export const GANG: Photo = {
+  src: '/images/os/gang-poster.jpg',
+  video: '/images/os/gang.mp4',
+  alt: 'Friends laughing and fooling around on a balcony',
+  caption: 'The gang, mid-bit. Nobody remembers the joke; everyone remembers the laugh.',
+};
+
 export type Photo = { src: string; alt: string; caption: string; video?: string };
 
 export const CAMERA_ROLL: Photo[] = [
