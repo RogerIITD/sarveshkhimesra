@@ -11,7 +11,7 @@ export type Persona = {
   sub: string;
   font: 'mono' | 'hindi' | 'sans';
   apps: AppId[]; // windows the persona opens (left → right)
-  wallpaper: { kind: 'image'; src: string } | { kind: 'ink' } | { kind: 'court' };
+  wallpaper: { kind: 'image'; src: string } | { kind: 'grid' } | { kind: 'ink' } | { kind: 'court' };
   wipe: string; // background colour of the circle wipe
 };
 
@@ -25,7 +25,7 @@ export const PERSONAS: Persona[] = [
     sub: 'AI Engineer · Office of the COO, Razorpay — business transformation, process excellence, AI strategy.',
     font: 'sans',
     apps: ['about', 'terminal'],
-    wallpaper: { kind: 'image', src: '/images/os/nebula.jpg' },
+    wallpaper: { kind: 'grid' },
     wipe: '#0b0d12',
   },
   {

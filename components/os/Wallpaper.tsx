@@ -37,6 +37,14 @@ export function Wallpaper({ persona }: { persona: Persona }) {
           <div className="absolute inset-0 bg-gradient-to-b from-bg/75 via-bg/30 to-bg/85" />
         </>
       )}
+      {w.kind === 'grid' && (
+        // same look as the story's "at work" chapter: deep navy, amber glow, a quiet blueprint grid
+        <div className="absolute inset-0 bg-[#0b0d12] overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(rgb(255_255_255/0.07)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_at_60%_40%,black,transparent_75%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgb(var(--accent)/0.14),transparent_55%),radial-gradient(ellipse_at_10%_95%,rgb(var(--accent)/0.06),transparent_50%)]" />
+          <p className="absolute -left-4 -bottom-[2vw] font-mono font-semibold text-[16vw] leading-none tracking-tighter text-white/[0.025] select-none">ai × ops</p>
+        </div>
+      )}
       {w.kind === 'ink' && (
         <div className="absolute inset-0 bg-[#100b09]">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_15%,rgb(var(--accent)/0.22),transparent_55%),radial-gradient(ellipse_at_10%_90%,rgb(var(--accent)/0.10),transparent_50%)]" />
