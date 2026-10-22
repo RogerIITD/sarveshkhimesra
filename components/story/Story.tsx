@@ -183,7 +183,6 @@ function Poet({ p }: { p: MotionValue<number> }) {
   const songOpacity = useTransform(p, [0.6, 0.64], [0, 1]);
   return (
     <div className="relative h-full">
-      <p className="absolute -right-8 bottom-0 font-hindi text-[30vw] leading-none text-white/[0.03] select-none pointer-events-none">शायरी</p>
       <motion.div style={{ opacity: bookOpacity, y: bookY, pointerEvents: bookEvents }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
         <Kicker n="02" label="the shayar" />
         <Reveal progress={p} at={[0, 0.08]}>
