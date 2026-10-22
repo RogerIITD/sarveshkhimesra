@@ -98,14 +98,6 @@ function Hello({ p }: { p: MotionValue<number> }) {
         <div className="absolute inset-x-0 bottom-0 h-1/3 hidden md:block bg-gradient-to-t from-[#07080b] to-transparent" />
         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent" />
       </motion.div>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="absolute right-6 md:right-10 top-20 md:top-auto md:bottom-10 font-mono text-[10px] md:text-[11px] text-white/60 max-w-[200px] text-right"
-      >
-        {HERO.caption}
-      </motion.p>
       <motion.div
         style={{ opacity: fade, y: lift }}
         className="relative h-full flex flex-col justify-end pb-20 md:pb-0 md:justify-center px-6 md:px-16 max-w-6xl mx-auto"
