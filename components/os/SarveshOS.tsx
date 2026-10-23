@@ -46,7 +46,7 @@ function fromElement(el: Element): Point {
   return { x: r.left + r.width / 2, y: r.top + r.height / 2 - TOPBAR };
 }
 
-export function SarveshOS({ onStory }: { onStory: () => void }) {
+export function SarveshOS({ onStory, launch = null }: { onStory: () => void; launch?: AppId | null }) {
   const { emitter, turbo } = useGame();
   const [wins, setWins] = useState<Win[]>([]);
   const [mobileApp, setMobileApp] = useState<AppId | null>(null);
@@ -113,7 +113,8 @@ export function SarveshOS({ onStory }: { onStory: () => void }) {
   // ── first windows + deep links ──
   useEffect(() => {
     const linked = new URLSearchParams(window.location.search).get('open') as AppId | null;
-    const deep = linked && APP_BY_ID[linked] ? linked : null;
+    const deep = launch ?? (linked && APP_BY_ID[linked] ? linked : null);
+    if (launch === 'shayari') setPersona(PERSONA_BY_ID.poet);
     if (isDesktop()) {
       FIRST_VISIT_APPS.forEach((id, slot) => open(id, 'auto', undefined, slot));
       if (deep) open(deep, 'link');

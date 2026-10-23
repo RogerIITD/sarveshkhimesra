@@ -8,6 +8,7 @@ import { SarveshOS } from '@/components/os/SarveshOS';
 import { SocialLinks } from '@/components/SocialLinks';
 import { NowPlaying } from '@/components/NowPlaying';
 import { CHAPTERS, Story } from '@/components/story/Story';
+import type { AppId } from '@/content/os';
 import { track } from '@/lib/track';
 import { useBackLayer } from '@/lib/useBackLayer';
 
@@ -51,8 +52,19 @@ export function Experience() {
     else window.scrollTo({ top, behavior: 'smooth' });
   };
 
+  // a button in the story can boot straight into one app (e.g. "more shayaris" → shayari.app)
+  const [launch, setLaunch] = useState<AppId | null>(null);
+  const openFromStory = useCallback(
+    (id: AppId) => {
+      setLaunch(id);
+      enterOS('button');
+    },
+    [enterOS],
+  );
+
   const backToStory = useCallback(() => {
     setMode('story');
+    setLaunch(null);
     requestAnimationFrame(() => window.scrollTo(0, 0));
   }, []);
   // back button on the desktop returns to the story (not for deep links, which start on the desktop)
@@ -104,7 +116,7 @@ export function Experience() {
           >
             <SocialLinks where="story" size={17} className="flex gap-4" />
           </motion.div>
-          <Story onActive={setActive} onEnterOS={() => enterOS('scroll')} />
+          <Story onActive={setActive} onEnterOS={() => enterOS('scroll')} onOpenApp={openFromStory} />
         </>
       )}
 
@@ -117,7 +129,7 @@ export function Experience() {
             animate={{ clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)' }}
             transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
           >
-            <SarveshOS onStory={backToStory} />
+            <SarveshOS onStory={backToStory} launch={launch} />
           </motion.div>
         )}
       </AnimatePresence>

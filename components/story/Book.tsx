@@ -2,18 +2,14 @@
 
 import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { NAZM, SHAYARI } from '@/content/secret-shayari';
+import { SHAYARI } from '@/content/secret-shayari';
 import { track } from '@/lib/track';
 import { maafi } from '@/lib/maafi';
 
-// Pages: the three recorded couplets, then the nazm over two pages (no recording yet).
-const PAGES: { text: string; audio?: string; note?: string }[] = [
-  ...SHAYARI,
-  { text: NAZM.lines.slice(0, 3).join('\n'), note: `${NAZM.title} — i` },
-  { text: NAZM.lines.slice(3).join('\n'), note: `${NAZM.title} — ii` },
-];
+// Pages: the three recorded couplets (the nazm gets its own stage after the book).
+const PAGES: { text: string; audio?: string; note?: string }[] = SHAYARI;
 // Scroll windows in which each page turns, spread evenly; the last page never turns.
-const TURN_SPAN = 0.44 / (PAGES.length - 1);
+const TURN_SPAN = 0.2 / (PAGES.length - 1);
 const FLIPS: [number, number][] = PAGES.slice(1).map((_, i) => [0.08 + i * TURN_SPAN, 0.08 + i * TURN_SPAN + TURN_SPAN * 0.8]);
 const NUMERALS = ['१', '२', '३', '४', '५', '६'];
 const PAPER = 'bg-[#f1e6d2] text-[#2b1b13]';

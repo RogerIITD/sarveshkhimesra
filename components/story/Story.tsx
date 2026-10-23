@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
+import { easeInOut, motion, useMotionValueEvent, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { BIO, HERO, PEOPLE, SPORTS, TRAVEL } from '@/content/os';
+import { BIO, HERO, PEOPLE, SPORTS, TRAVEL, type AppId } from '@/content/os';
+import { NAZM } from '@/content/secret-shayari';
 import { BOOT_LINES } from '@/content/personas';
 import { MaafiApp } from '@/components/os/apps/MaafiApp';
 import { useScramble } from '@/components/os/useScramble';
@@ -25,9 +26,9 @@ export const CHAPTERS = [
   { id: 'boot', label: '06 sarvesh-os' },
 ] as const;
 
-type Props = { onActive: (id: string) => void; onEnterOS: () => void };
+type Props = { onActive: (id: string) => void; onEnterOS: () => void; onOpenApp: (id: AppId) => void };
 
-export function Story({ onActive, onEnterOS }: Props) {
+export function Story({ onActive, onEnterOS, onOpenApp }: Props) {
   // A chapter is "active" once its wipe is mostly done and it hasn't scrolled away.
   const state = useRef<Record<string, { entered: boolean; done: boolean }>>({});
   const seen = useRef(new Set<string>());
@@ -49,8 +50,8 @@ export function Story({ onActive, onEnterOS }: Props) {
       <Chapter id="engineer" screens={4} enter="pill" background="#0b0d12" accent="251 191 36" z={2} onProgress={report}>
         {(p) => <Engineer p={p} />}
       </Chapter>
-      <Chapter id="poet" screens={6} enter="circle" background="#120b09" accent="244 114 82" z={3} className="cursor-pen" onProgress={report}>
-        {(p) => <Poet p={p} />}
+      <Chapter id="poet" screens={7} enter="circle" background="#120b09" accent="244 114 82" z={3} className="cursor-pen" onProgress={report}>
+        {(p) => <Poet p={p} onMore={() => onOpenApp('shayari')} />}
       </Chapter>
       <Chapter id="athlete" screens={4} enter="pill" background="#0a1a14" accent="190 242 100" z={4} className="cursor-racquet" onProgress={report}>
         {(p) => <Athlete p={p} />}
@@ -171,15 +172,18 @@ function Engineer({ p }: { p: MotionValue<number> }) {
 }
 
 /* ── 02 poet ──────────────────────────────────────────── */
-// Two acts on one pinned screen: the notebook, then (once its last page has had
-// its moment) the book lifts away and the song gets the whole stage.
-function Poet({ p }: { p: MotionValue<number> }) {
-  const bookOpacity = useTransform(p, [0.58, 0.66], [1, 0]);
-  const bookY = useTransform(p, [0.58, 0.66], [0, -80]);
-  const bookEvents = useTransform(p, (v) => (v < 0.62 ? 'auto' : 'none'));
+// Three acts on one pinned screen: the notebook of recorded couplets, the nazm
+// on a page of its own, then the song gets the whole stage.
+function Poet({ p, onMore }: { p: MotionValue<number>; onMore: () => void }) {
+  const bookOpacity = useTransform(p, [0.3, 0.36], [1, 0]);
+  const bookY = useTransform(p, [0.3, 0.36], [0, -80]);
+  const bookEvents = useTransform(p, (v) => (v < 0.33 ? 'auto' : 'none'));
+  const nazmOpacity = useTransform(p, [0.34, 0.4, 0.56, 0.61], [0, 1, 1, 0]);
+  const nazmY = useTransform(p, [0.34, 0.4, 0.56, 0.61], [60, 0, 0, -80]);
+  const nazmEvents = useTransform(p, (v) => (v > 0.38 && v < 0.58 ? 'auto' : 'none'));
   const songEvents = useTransform(p, (v) => (v > 0.68 ? 'auto' : 'none'));
   const glow = useTransform(p, [0.64, 0.78], [0, 1]);
-  // keep the song's (blurred) words fully off stage until the book has left
+  // keep the song's (blurred) words fully off stage until the nazm has left
   const songOpacity = useTransform(p, [0.6, 0.64], [0, 1]);
   return (
     <div className="relative h-full">
@@ -189,6 +193,39 @@ function Poet({ p }: { p: MotionValue<number> }) {
           <p className="mt-4 md:mt-6 font-hindi text-5xl md:text-7xl [@media(max-height:640px)]:text-4xl leading-[1.25] text-ink">सर्वेश</p>
         </Reveal>
         <Book p={p} className="mt-4 md:mt-6" />
+      </motion.div>
+      <motion.div style={{ opacity: nazmOpacity, y: nazmY, pointerEvents: nazmEvents }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-20 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
+        <Kicker n="02" label="a nazm" />
+        <div className="relative mt-4 md:mt-6 max-w-3xl md:w-fit">
+          <div className="absolute -inset-2 md:-inset-3 rounded-xl bg-[#3b1d14] shadow-[0_30px_60px_-15px_rgb(0_0_0/0.8)]" />
+          <div className="relative rounded-md bg-[#f1e6d2] text-[#2b1b13] bg-[repeating-linear-gradient(to_bottom,transparent_0,transparent_35px,rgb(43_27_19/0.07)_36px)] p-5 sm:p-7 md:p-10 [@media(max-height:640px)]:p-4">
+            <p className="font-hindi text-3xl md:text-4xl [@media(max-height:640px)]:text-2xl text-[#b4533a] leading-[1.4]">{NAZM.title}</p>
+            <div className="mt-3 md:mt-5 space-y-2 md:space-y-2.5 [@media(max-height:640px)]:space-y-1">
+              {NAZM.lines.map((l, i) => (
+                <Reveal key={l} progress={p} at={[0.38 + i * 0.02, 0.42 + i * 0.02]} y={12}>
+                  {/* phones: each line breaks at its comma so "मेरे दोस्तों" never dangles alone */}
+                  <p className="font-hindi text-[15px] sm:text-lg md:text-xl lg:text-2xl [@media(max-height:640px)]:text-sm leading-[1.5] sm:leading-[1.6]">
+                    {l.split(/(?<=,) /).map((part) => (
+                      <span key={part} className="block sm:inline">
+                        {part}{' '}
+                      </span>
+                    ))}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+            <p className="mt-3 md:mt-5 text-right font-hindi text-sm md:text-base text-[#2b1b13]/50 italic [@media(max-height:640px)]:hidden">~ स.</p>
+          </div>
+        </div>
+        <Reveal progress={p} at={[0.5, 0.54]} className="mt-6 md:mt-8 [@media(max-height:640px)]:mt-4">
+          <button
+            onClick={onMore}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-accent text-accent hover:bg-accent/10 font-mono text-xs md:text-sm"
+            data-target="story-more-shayari"
+          >
+            more shayaris on my desktop →
+          </button>
+        </Reveal>
       </motion.div>
       <motion.div style={{ pointerEvents: songEvents, opacity: songOpacity }} className="absolute inset-0 flex flex-col justify-center pt-16 pb-6 md:py-0 px-6 md:px-16 max-w-6xl mx-auto">
         <motion.div style={{ opacity: glow }} className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[70vmin] h-[70vmin] rounded-full bg-[radial-gradient(circle,rgb(236_72_153/0.12),transparent_65%)] pointer-events-none" />
@@ -291,7 +328,10 @@ function Traveller({ p }: { p: MotionValue<number> }) {
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
   }, []);
-  const x = useTransform(p, [0.08, 0.95], [0, -distance]);
+  // sprung so the strip glides instead of tracking the wheel 1:1; eased with a short
+  // hold at each end so it gathers speed gently and settles before the next chapter
+  const smooth = useSpring(p, { stiffness: 120, damping: 30, mass: 0.6 });
+  const x = useTransform(smooth, [0.14, 0.88], [0, -distance], { ease: easeInOut });
   return (
     <div className="relative h-full flex flex-col justify-center pt-14 md:pt-0">
       <div className="px-6 md:px-16">

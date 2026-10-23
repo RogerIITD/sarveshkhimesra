@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion, useMotionValueEvent, useTransform, type MotionValue } from 'framer-motion';
+import { AnimatePresence, easeOut, motion, useMotionValueEvent, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { PEOPLE } from '@/content/os';
 import { Media } from '@/components/os/Media';
@@ -82,10 +82,12 @@ function Card({ i, p, desktop, photo, shape }: { i: number; p: MotionValue<numbe
   const slot = SLOTS[i];
   const rot = desktop ? slot.rot : STACK_ROT[i];
   const from = i % 2 ? 28 : -28;
-  const y = useTransform(p, [a, b], [900, 0]);
-  const x = useTransform(p, [a, b], [from * 6, 0]);
-  const rotate = useTransform(p, [a, b], [rot + from, rot]);
-  const opacity = useTransform(p, [a, a + 0.02], [0, 1]);
+  // sprung + eased so cards glide in and settle softly rather than tracking the wheel 1:1
+  const sp = useSpring(p, { stiffness: 140, damping: 28, mass: 0.6 });
+  const y = useTransform(sp, [a, b], [900, 0], { ease: easeOut });
+  const x = useTransform(sp, [a, b], [from * 6, 0], { ease: easeOut });
+  const rotate = useTransform(sp, [a, b], [rot + from, rot], { ease: easeOut });
+  const opacity = useTransform(sp, [a, a + 0.02], [0, 1]);
 
   // widths scale with both viewport sides so the collage fits short laptop screens too
   const width = desktop
