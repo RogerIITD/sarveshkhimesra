@@ -345,10 +345,10 @@ function Traveller({ p }: { p: MotionValue<number> }) {
         />
       </div>
       {/* edges fade so photos (and captions) don't collide with the social rail as they slide */}
-      <div className="mt-10 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+      <div className="mt-10 [@media(max-height:760px)]:mt-6 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
         <motion.div ref={track} style={{ x }} className="flex gap-5 pl-6 md:pl-16 w-max">
           {STRIP.map((ph, i) => (
-            <figure key={ph.src} className={`w-56 md:w-72 shrink-0 ${i % 2 ? 'mt-10' : ''}`}>
+            <figure key={ph.src} className={`w-56 md:w-72 [@media(max-height:760px)]:w-44 md:[@media(max-height:760px)]:w-56 shrink-0 ${i % 2 ? 'mt-10 [@media(max-height:760px)]:mt-6' : ''}`}>
               <div className="relative aspect-[4/5] rounded-xl overflow-hidden border border-white/10">
                 <Media item={ph} sizes="300px" />
               </div>

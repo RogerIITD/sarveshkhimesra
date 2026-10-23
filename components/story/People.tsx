@@ -95,12 +95,12 @@ function Card({ i, p, desktop, photo, shape }: { i: number; p: MotionValue<numbe
       ? 'min(15vw, 24vh)'
       : 'min(11vw, 17vh)'
     : shape === 'L'
-      ? 'min(78vw, 36vh)'
-      : 'min(56vw, 26vh)';
+      ? 'min(78vw, 33vh)'
+      : 'min(56vw, 23vh)';
 
   return (
     <div
-      className={desktop ? 'absolute' : 'absolute inset-0 flex items-center [@media(max-height:640px)]:items-start justify-center pointer-events-none'}
+      className={desktop ? 'absolute' : 'absolute inset-0 flex items-center [@media(max-height:760px)]:items-start justify-center pointer-events-none'}
       style={desktop ? { left: `${slot.left}%`, top: `${slot.top}%`, zIndex: i } : { zIndex: i }}
     >
       <motion.figure style={{ y, x, rotate, opacity, width }} className="pointer-events-auto rounded-md bg-[#f4efe6] p-1.5 pb-2 md:p-2 shadow-2xl shadow-black/60 hover:!z-50">
