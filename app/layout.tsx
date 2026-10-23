@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-328CQS0Z6D');
+          gtag('config', 'G-328CQS0Z6D', { cookie_domain: location.hostname }); // vercel.app is a public suffix: pin cookies to our host or browsers reject them
         `}</Script>
       </head>
       <body>

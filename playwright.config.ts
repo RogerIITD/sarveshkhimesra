@@ -10,7 +10,7 @@ export default defineConfig({
   timeout: 120_000,
   fullyParallel: true,
   workers: 4,
-  reporter: [['list'], ['html', { open: 'never', outputFolder: 'test-results/report' }]],
+  reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]],
   use: {
     baseURL: process.env.BASE_URL ?? 'http://localhost:3100',
     screenshot: 'only-on-failure',
