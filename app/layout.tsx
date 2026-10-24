@@ -17,10 +17,10 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   // absolute URLs for the link-preview image when shared on LinkedIn / WhatsApp / X
   metadataBase: new URL('https://sarveshkhimesra.vercel.app'),
-  title: 'Sarvesh Khimesra · AI Engineer, Office of the COO at Razorpay',
+  title: 'Sarvesh Khimesra',
   description: 'AI engineer driving business transformation, process excellence and AI strategy. Also: shayari, a song called Maafi, tennis, squash and cricket.',
   openGraph: {
-    title: 'Sarvesh Khimesra · AI Engineer, Office of the COO at Razorpay',
+    title: 'Sarvesh Khimesra',
     description: 'Business transformation × AI. Open the apps — shayari, music, sports, travel.',
     type: 'website',
     images: ['/images/os/headshot.jpg'],
