@@ -70,6 +70,7 @@ export const SPORTS: { tab: string; photos: Photo[]; note?: string }[] = [
     tab: 'tennis',
     photos: [
       { src: '/images/os/tennis-forehand.jpg', alt: 'Sarvesh stretching for a forehand on a night court', caption: "Full-stretch forehand. My partner's face says it was going out." },
+      { src: '/images/os/tennis-racquet.jpg', alt: 'A black Wilson Pro Staff racquet on a green-and-blue hard court, between two tennis shoes, net to the right', caption: 'Pro Staff, Asics, empty court. The only meeting I never reschedule.' },
       { src: '/images/photos/tennis-duo.jpg', alt: 'Tennis with a partner', caption: 'Lost the match, won the photo.' },
     ],
   },

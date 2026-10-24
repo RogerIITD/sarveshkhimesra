@@ -31,8 +31,8 @@ export function MaafiApp({ big = false }: { big?: boolean }) {
         </div>
         <div className="min-w-0">
           <p className={`font-semibold text-ink ${big ? 'text-4xl md:text-7xl tracking-tight' : 'text-xl'}`}>Maafi</p>
-          <p className={`text-dim ${big ? 'mt-2 text-base md:text-xl' : 'text-sm'}`}>written &amp; sung by Sarvesh Khimesra</p>
-          <p className={`text-dim/70 mt-1 font-mono ${big ? 'text-xs md:text-sm' : 'text-xs'}`}>no autotune was harmed. some was used.</p>
+          <p className={`text-dim ${big ? 'mt-2 text-base md:text-xl' : 'text-sm'}`}>written &amp; composed by Sarvesh Khimesra</p>
+          <p className={`text-dim/70 mt-1 font-mono ${big ? 'text-xs md:text-sm' : 'text-xs'}`}>sung by… guess who?</p>
         </div>
       </div>
       <div className="flex items-center gap-3">
