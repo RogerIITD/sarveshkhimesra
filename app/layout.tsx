@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   // absolute URLs for the link-preview image when shared on LinkedIn / WhatsApp / X
   metadataBase: new URL('https://sarveshkhimesra.vercel.app'),
   title: 'Sarvesh Khimesra',
-  description: 'AI engineer driving business transformation, process excellence and AI strategy. Also: shayari, a song called Maafi, tennis, squash and cricket.',
+  description: 'Shayari, a song called Maafi, tennis, and trips that turn into search parties. By day, redesigning how Razorpay runs, with AI.',
   openGraph: {
     title: 'Sarvesh Khimesra',
-    description: 'Business transformation × AI. Open the apps — shayari, music, sports, travel.',
+    description: 'Scroll the story, then open the desktop: shayari, music, sports, travel and my people.',
     type: 'website',
     images: ['/images/os/headshot.jpg'],
   },
